@@ -75,11 +75,11 @@
                                         <a href="#" data-id ="@item.ID" class="btn-images">Quản Lý Ảnh</a>
                                         |
                                         <a href="/Admin/Product/Edit/@item.ID">Thay đổi</a>
-                                        |
+                                        |@*cập nhập trạnh thái*@
                                         @Ajax.ActionLink("Xoá", "Delete", new { @id = item.ID }, new AjaxOptions
                                   {
-                                      Confirm = "Bạn có muốn xoá sản phẩm này?",
-                                      OnComplete = "$('#row_" + @item.ID + "').remove()",
+                                      Confirm = "cập nhập sản phẩm đã đc giao dến khách hàng và được thanh toán",
+                                      
                                       HttpMethod = "Delete"
                                   })
                                     </td>

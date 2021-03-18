@@ -209,6 +209,7 @@ namespace OnlineShop.Controllers
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex.ToString());
                 //return Redirect("/loi-thanh-toan");
               //  throw ex;
             }
