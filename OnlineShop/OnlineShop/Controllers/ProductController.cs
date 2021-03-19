@@ -60,10 +60,10 @@ namespace OnlineShop.Controllers
             ViewBag.Prev = page - 1;
             return View(model);
         }
-        public ActionResult Search(string keyword, int page = 1, int pageSize = 1)
+        public ActionResult Search(string from,string to, string keyword, int page = 1, int pageSize = 1)
         {
             int totalRecord = 0;
-            var model = new ProductDao().Search(keyword, ref totalRecord, page, pageSize);
+            var model = new ProductDao().Search(Convert.ToInt32(from),Convert.ToInt32(to),keyword, ref totalRecord, page, pageSize);
 
             ViewBag.Total = totalRecord;
             ViewBag.Page = page;
@@ -78,6 +78,8 @@ namespace OnlineShop.Controllers
             ViewBag.Last = totalPage;
             ViewBag.Next = page + 1;
             ViewBag.Prev = page - 1;
+            ViewBag.from = from;
+            ViewBag.to = to;
 
             return View(model);
         }

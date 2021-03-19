@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Models.DAO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -17,6 +18,15 @@ namespace OnlineShop.Areas.Admin.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+
+        // xem san pham. co phan trang 
+        public ActionResult Select(string searchString, int page = 1, int pageSize = 5)
+        {
+            var dao = new StatisticalDAO();
+            var model = dao.ListAllPaging(searchString, page, pageSize);
+            ViewBag.SearchString = searchString;
+            return View(model);
         }
 
     }

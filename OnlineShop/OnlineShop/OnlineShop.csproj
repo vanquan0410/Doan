@@ -152,6 +152,7 @@
     <Compile Include="Areas\Admin\Controllers\OrderController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
     <Compile Include="Areas\Admin\Controllers\SlideController.cs" />
+    <Compile Include="Areas\Admin\Controllers\StatisticalController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
     <Compile Include="Areas\Admin\Models\LoginModel.cs" />
     <Compile Include="Common\CommonConstants.cs" />
@@ -1692,6 +1693,7 @@
     <Content Include="assets\client\images\slide-2-image.jpg" />
     <Content Include="assets\client\images\slide-3-image.jpg" />
     <Content Include="assets\client\images\tag.png" />
+    <Content Include="assets\client\images\timser.gif" />
     <Content Include="assets\client\images\twitter.png" />
     <Content Include="assets\client\images\value-rating.png" />
     <Content Include="assets\client\images\wishlist.png" />
@@ -1742,6 +1744,7 @@
     <Content Include="assets\client\fonts\OpenSans-SemiBold.ttf" />
     <Content Include="assets\client\fonts\OpenSans-SemiBoldItalic.ttf" />
     <Content Include="Areas\Admin\Views\Order\Select.cshtml" />
+    <Content Include="Areas\Admin\Views\Slide\Select.cshtml" />
     <None Include="Scripts\jquery-1.8.0.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.0.js" />
     <Content Include="Scripts\jquery-1.8.0.min.js" />

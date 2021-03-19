@@ -44,7 +44,7 @@ namespace Models.DAO
             IQueryable<Order> model = db.Orders;
             if (!string.IsNullOrEmpty(searchString))
             {
-                model = model.Where(x => x.ShipAddress.Contains(searchString) || x.ShipEmail.Contains(searchString));
+                model = model.Where(x => (x.ShipAddress.Contains(searchString) || x.ShipEmail.Contains(searchString)));
             }
 
             return model.OrderByDescending(x => x.CreatedDate).ToPagedList(page, pageSize);

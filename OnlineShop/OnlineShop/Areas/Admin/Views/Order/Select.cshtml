@@ -44,7 +44,7 @@
                                 Ngày
                             </th>
                             <th>
-                                Mã sản phẩm
+                                Mã đơn hàng
                             </th>
                             <th>
                                 Tên Ship Hàng
@@ -87,16 +87,18 @@
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Status)
+                                    @*  @item.Status==1?sadasdad:ádasd
+                                    *@
                                 </td>
                                 <td>
-                                    @*  @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-        @Html.ActionLink("Details", "Details", new { id = item.ID }) |*@
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                                    @Html.ActionLink("Details", "Details", new { id = item.ID }) |
 
 
 
                                     @Ajax.ActionLink("Xác nhận", "Delete", new { @id = item.ID }, new AjaxOptions
                                   {
-                                      Confirm = "Bạn có muốn xoá sản phẩm này?",
+                                      Confirm = "Xác nhận đơn hàng này đã được giao đến khách hàng và được thanh toán",
                                       OnComplete = "$('#row_" + @item.ID + "').remove()",
                                       HttpMethod = "Delete"
                                   })

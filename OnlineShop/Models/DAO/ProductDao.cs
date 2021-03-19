@@ -49,8 +49,39 @@ namespace Models.DAO
            
         }
         //tim kiem
-        public List<ProductViewModel> Search(string keyword, ref int totalRecord, int pageIndex = 1, int pageSize = 10)
+        public List<ProductViewModel> Search(int pireform, int pireto,string keyword, ref int totalRecord, int pageIndex = 1, int pageSize = 10)
         {
+            if(pireform!=0 &&pireto != 0)
+            {
+                totalRecord = db.Products.Where(x => x.Name == keyword).Count();
+                var model2 = (from a in db.Products
+                             join b in db.ProductCategories
+                             on a.CategoryID equals b.ID
+                             where a.Name.Contains(keyword) && a.Price<=pireto &&a.Price>=pireform
+                             select new
+                             {
+                                 CateMetaTitle = b.MetaTitle,
+                                 CateName = b.Name,
+                                 CreatedDate = a.CreatedDate,
+                                 ID = a.ID,
+                                 Images = a.Image,
+                                 Name = a.Name,
+                                 MetaTitle = a.MetaTitle,
+                                 Price = a.Price
+                             }).AsEnumerable().Select(x => new ProductViewModel()
+                             {
+                                 CateMetaTitle = x.MetaTitle,
+                                 CateName = x.Name,
+                                 CreatedDate = x.CreatedDate,
+                                 ID = x.ID,
+                                 Images = x.Images,
+                                 Name = x.Name,
+                                 MetaTitle = x.MetaTitle,
+                                 Price = x.Price
+                             });
+                model2.OrderByDescending(x => x.CreatedDate).Skip((pageIndex - 1) * pageSize).Take(pageSize);
+                return model2.ToList();
+            }
             totalRecord = db.Products.Where(x => x.Name == keyword).Count();
             var model = (from a in db.Products
                          join b in db.ProductCategories
