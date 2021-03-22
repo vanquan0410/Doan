@@ -66,44 +66,58 @@
 
                         @foreach (var item in Model)
                         {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.CreatedDate)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.ID)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.ShipName)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.ShipMobile)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.ShipAddress)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.ShipEmail)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Status)
-                                    @*  @item.Status==1?sadasdad:ádasd
-                                    *@
-                                </td>
-                                <td>
-                                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                                    @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreatedDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ShipName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ShipMobile)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ShipAddress)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ShipEmail)
+                        </td>
+                        @if (item.Status == 1)
+                        {
+                            <td style="color:#0094ff">đã nhận</td>
+                        }
+                        @if (item.Status == 2)
+                        {
+                            <td style="color:#ff0000">đã hủy</td>
+                        }
+                        @if (item.Status != 2&& item.Status!=1)
+                        {
+                            <td style="color:#808080">đang chờ</td>
+                        }
+
+                        <td>
 
 
 
-                                    @Ajax.ActionLink("Xác nhận", "Delete", new { @id = item.ID }, new AjaxOptions
-                                  {
-                                      Confirm = "Xác nhận đơn hàng này đã được giao đến khách hàng và được thanh toán",
-                                      OnComplete = "$('#row_" + @item.ID + "').remove()",
-                                      HttpMethod = "Delete"
-                                  })
-                                </td>
-                            </tr>
+
+                            @Ajax.ActionLink("Xác nhận", "Delete", new { @id = item.ID }, new AjaxOptions
+                          {
+                              Confirm = "Xác nhận đơn hàng này đã được giao đến khách hàng và được thanh toán",
+                              OnComplete = "$('#row_" + @item.ID + "').remove()",
+                              HttpMethod = "Delete"
+                          })|
+
+                            @Ajax.ActionLink("Hủy", "DeleteCancel", new { @id = item.ID }, new AjaxOptions
+                         {
+                             Confirm = "Xác nhận đơn hàng bị hủy",
+                             OnComplete = "$('#row_" + @item.ID + "').remove()",
+                             HttpMethod = "Delete"
+                         })
+                        </td>
+                    </tr>
                         }
 
                     </table>

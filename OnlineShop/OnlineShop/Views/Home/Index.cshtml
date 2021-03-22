@@ -19,6 +19,8 @@
                     <div id="mover">
                         @foreach (var item in slides)
                         {
+
+
                             <div id="slide-1" class="slide">
                                 <div class="slider-img">
                                     <a href="@item.Link"><img src="@item.Image" alt="learn more" /></a>
@@ -53,24 +55,34 @@
         <div class="clear"></div>
     </div>
     <div class="section group">
-        @foreach(var item in listNewProducts)
+        @foreach (var item in listNewProducts)
         {
-            var url="/chi-tiet/"+item.MetaTitle+"-"+item.ID;
-             <div class="grid_1_of_4 images_1_of_4">
-            <a href="@url"><img src="@item.Image" alt="@item.Name" /></a>
-            <h2>@item.Name </h2>
-            <div class="price-details">
-                <div class="price-number">
-                    <p><span class="rupees">@(item.Price.HasValue ? item.Price.Value.ToString("N0"):"Liên Hệ")</span></p>
-                </div>
-                <div class="add-cart">
-                    <h4><a href="/them-gio-hang?productId=@item.ID&quantity=1">Thêm vào giỏ hàng</a></h4>
-                </div>
-                <div class="clear"></div>
-            </div>
 
-        </div>
-        }             
+            var url = "/chi-tiet/" + item.MetaTitle + "-" + item.ID;
+
+
+
+            <div class="grid_1_of_4 images_1_of_4">
+
+
+
+
+
+
+                <a href="@url"><img src="@item.Image" alt="@item.Name" /></a>
+                <h2>@item.Name </h2>
+                <div class="price-details">
+                    <div class="price-number">
+                        <p><span class="rupees">@(item.Price.HasValue ? item.Price.Value.ToString("N0"):"Liên Hệ")</span></p>
+                    </div>
+                    <div class="add-cart">
+                        <h4><a href="/them-gio-hang?productId=@item.ID&quantity=1">Thêm vào giỏ hàng</a></h4>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+            </div>
+        }
     </div>
     <div class="content_bottom">
         <div class="heading">

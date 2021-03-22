@@ -58,6 +58,14 @@ namespace Models.DAO
             return 1;
         }
 
+        public int ChangeStatusFalse(long id)
+        {
+            var order = db.Orders.Find(id);
+            order.Status = 2;
+            db.SaveChanges();
+            return 2;
+        }
+
 
 
     }

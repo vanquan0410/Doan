@@ -176,7 +176,11 @@ namespace Models.DAO
                 product.PromotionPrice = entity.PromotionPrice;
                 product.IncludedVAT = entity.IncludedVAT;
                 product.ModifiedBy = entity.ModifiedBy;
-                product.Quantity = entity.Quantity;
+
+
+                    product.Quantity = entity.Quantity;
+
+                
                 product.ModifiedDate = DateTime.Now;
                 product.Status = entity.Status;
                 product.TopHot = DateTime.Now;

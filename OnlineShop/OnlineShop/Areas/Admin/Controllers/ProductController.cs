@@ -11,7 +11,7 @@ using System.Text;
 using System.Web.Script.Serialization;
 using System.Xml.Linq;
 using Common;
-
+using NLog;
 
 namespace OnlineShop.Areas.Admin.Controllers
 {
@@ -55,7 +55,7 @@ namespace OnlineShop.Areas.Admin.Controllers
             if (product.Name != null)
             {
                 if (ModelState.IsValid)
-                { 
+                {
                     var dao = new ProductDao();
                     product.MetaTitle = CommonConstants.convertToUnSign3(product.Name);
                     product.Description = product.Name;
@@ -67,6 +67,7 @@ namespace OnlineShop.Areas.Admin.Controllers
                     product.MetaDescriptions = product.MetaTitle;
                     product.TopHot = DateTime.Now;
                     product.ViewCount = 0;
+                    product.CategoryID = 1;
                     long id = dao.Insert(product);
                     if (id > 0)
                     {
@@ -82,7 +83,7 @@ namespace OnlineShop.Areas.Admin.Controllers
 
             }
             SetViewBag();
-           // SetAlert("Thêm sản phẩm  không thành công", "success");
+            // SetAlert("Thêm sản phẩm  không thành công", "success");
             SetAlert("Tên sản phẩm bắt buộc", "error");
             return View("Create");
         }
@@ -96,7 +97,7 @@ namespace OnlineShop.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(Product product)
+        public ActionResult Edit(Product product, int?addCount)
         {
             if (ModelState.IsValid)
             {
@@ -108,6 +109,17 @@ namespace OnlineShop.Areas.Admin.Controllers
                 product.MetaKeywords = product.MetaTitle;
                 product.MetaDescriptions = product.MetaTitle;
                 product.TopHot = DateTime.Now;
+                product.CategoryID = 1;
+                try
+                {
+                    product.Quantity = product.Quantity + (int)addCount;
+                }
+                catch (Exception ex)
+                {
+                    Logger logger = LogManager.GetLogger("fileLogger");
+                    logger.Error(ex, "ko có số lượng thêm vào ");
+                }
+                
                 var result = dao.Update(product);
                 if (result)
                 {

@@ -31,11 +31,19 @@ namespace OnlineShop.Areas.Admin.Controllers
         }
 
 
-        [HttpDelete] // xoa san pham
+        [HttpDelete] // thực hiện xóa trạng thái khi khách hàng đã thanh toán
         public ActionResult Delete(int id)
         {
             new OrderDao().ChangeStatusTrue(id);
             SetAlert("đơn hàng đã được giao đến khách hàng", "success");
+            return View("Select");
+        }
+
+        [HttpDelete] // thực hiện xóa trạng thái khi khách hàng đã thanh toán
+        public ActionResult DeleteCancel(int id)
+        {
+            new OrderDao().ChangeStatusFalse(id);
+            SetAlert("hủy đơn hàng", "success");
             return View("Select");
         }
 
