@@ -21,6 +21,7 @@ namespace OnlineShop.Controllers
         {
             return View();
         }
+
         [ChildActionOnly]
         public PartialViewResult ProductCategory()
         {
@@ -30,14 +31,23 @@ namespace OnlineShop.Controllers
 
         public JsonResult ListName(string q)
         {
+            
             var data = new ProductDao().ListName(q);
             return Json(new
             {
                 data = data,
                 status = true
             }, JsonRequestBehavior.AllowGet);
-        }        
-        //Phan trang danh sach san pham
+        }
+
+        /// <summary>
+        /// Phan trang danh sach san pham
+        /// </summary>
+        /// <param name="cateId"></param>
+        /// <param name="page"></param>
+        /// <param name="pageSize"></param>
+        /// <returns></returns>
+        ///createdby:dvquan
         public ActionResult Category(long cateId, int page = 1, int pageSize = 8)
         {            
             var category = new CategoryDao().ViewDetail(cateId);
@@ -60,10 +70,31 @@ namespace OnlineShop.Controllers
             ViewBag.Prev = page - 1;
             return View(model);
         }
+
+        /// <summary>
+        /// constroller thực hiện chức năng tìm kiếm sản phẩm
+        /// </summary>
+        /// <param name="from">Giá từ</param>
+        /// <param name="to">Giá đến</param>
+        /// <param name="keyword">từ khóa tìm kiếm</param>
+        /// <param name="page"></param>
+        /// <param name="pageSize"></param>
+        /// <returns></returns>
+        /// createdby:dvquan
         public ActionResult Search(string from,string to, string keyword, int page = 1, int pageSize = 1)
         {
+            string fromDetail = from;
+            string toDetail = to;
             int totalRecord = 0;
-            var model = new ProductDao().Search(Convert.ToInt32(from),Convert.ToInt32(to),keyword, ref totalRecord, page, pageSize);
+            if (string.IsNullOrEmpty(from))
+            {
+                fromDetail = "0";
+            }
+            if (string.IsNullOrEmpty(to))
+            {
+                toDetail = "0";
+            }
+            var model = new ProductDao().Search(Convert.ToInt32(fromDetail),Convert.ToInt32(toDetail),keyword, ref totalRecord, page, pageSize);
 
             ViewBag.Total = totalRecord;
             ViewBag.Page = page;
@@ -83,6 +114,13 @@ namespace OnlineShop.Controllers
 
             return View(model);
         }
+
+        /// <summary>
+        /// trang xem chi tiết sản phẩm
+        /// </summary>
+        /// <param name="cateId"></param>
+        /// <returns></returns>
+        /// createdby:dvquan
         public ActionResult Detail(long cateId)
         {
             var product = new ProductDao().ViewDetail(cateId);

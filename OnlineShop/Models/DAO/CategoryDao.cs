@@ -43,7 +43,8 @@ namespace Models.DAO
         /// CreatedBy:DVquan(05/3/2021)
         public List<Category> AllList()
         {
-            return db.Categories.Where(x => x.Status == true).ToList();
+            //return db.Categories.Where(x => x.Status == true).ToList();
+            return db.Categories.ToList();
         }
 
         /// <summary>

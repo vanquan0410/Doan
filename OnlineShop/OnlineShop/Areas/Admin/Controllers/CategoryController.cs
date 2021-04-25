@@ -66,7 +66,7 @@ namespace OnlineShop.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Create(Category model)
         {
-            if(model.Name == null)
+            if (model.Name == null)
             {
                 SetAlert("Tên loại sản phẩm bắt buộc", "error");
                 return View(model);
@@ -78,7 +78,8 @@ namespace OnlineShop.Areas.Admin.Controllers
                 var session = (Common.UserLogin)Session[OnlineShop.Common.CommonConstants.USER_SESSION];
                 model.CreatedBy = session.UserName;
                 model.CreatedDate = DateTime.Now;
-                var id = new CategoryDao().Insert(model);
+                var dao = new CategoryDao();
+                long id = dao.Insert(model);
                 if (id > 0)
                 {
                     SetAlert("Thêm loại sản phẩm thành công", "success");

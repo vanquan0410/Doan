@@ -21,16 +21,30 @@ namespace OnlineShop.Areas.Admin.Controllers
     /// createdby:dvquan
     public class ProductController : BaseController
     {
+        /// <summary>
+        /// db
+        /// </summary>
         // GET: Admin/Product
         OnlineShopDbContext db = new OnlineShopDbContext();
 
+        /// <summary>
+        /// index controler
+        /// </summary>
+        /// <returns></returns>
+        /// createdby:dvquan
         public ActionResult Index()
         {
             return View();
         }
 
-
-        // xem san pham. co phan trang 
+        /// <summary>
+        /// xem san pham. co phan trang  
+        /// </summary>
+        /// <param name="searchString">key sản phảm tìm kiếm</param>
+        /// <param name="page">trang hiện tại</param>
+        /// <param name="pageSize">số trang</param>
+        /// <returns>ds sản phâme</returns>
+        ///  createdby:dvquan
         public ActionResult Select(string searchString, int page = 1, int pageSize = 5)
         {
             var dao = new ProductDao();
@@ -39,7 +53,11 @@ namespace OnlineShop.Areas.Admin.Controllers
             return View(model);
         }
 
-
+        /// <summary>
+        /// màn hình thị thông tin cho người dùng thêm sản phẩm
+        /// </summary>
+        /// <returns></returns>
+        ///  createdby:dvquan
         [HttpGet] //  truyen viewbag len view them san pham
         public ActionResult Create()
         {
@@ -47,8 +65,12 @@ namespace OnlineShop.Areas.Admin.Controllers
             return View("Create");
         }
 
-
-
+        /// <summary>
+        /// thực hiện thêm sản phẩm
+        /// </summary>
+        /// <param name="product"></param>
+        /// <returns>thông báo thêm sản phẩm thành công hoặc thất bại</returns>
+        ///  createdby:dvquan
         [HttpPost] // them san pham
         public ActionResult Create(Product product)
         {
@@ -67,7 +89,7 @@ namespace OnlineShop.Areas.Admin.Controllers
                     product.MetaDescriptions = product.MetaTitle;
                     product.TopHot = DateTime.Now;
                     product.ViewCount = 0;
-                    product.CategoryID = 1;
+                    //product.CategoryID = 1;
                     long id = dao.Insert(product);
                     if (id > 0)
                     {
@@ -88,7 +110,11 @@ namespace OnlineShop.Areas.Admin.Controllers
             return View("Create");
         }
 
-
+        /// <summary>
+        /// màn hình hiển thị thông tin chho người dùng sửa sản phẩm
+        /// </summary>
+        /// <param name="id">id sản phẩm truyền trong query</param>
+        /// <returns></returns>
         public ActionResult Edit(int id)
         {
             SetViewBag();
@@ -96,6 +122,13 @@ namespace OnlineShop.Areas.Admin.Controllers
             return View(product);
         }
 
+        /// <summary>
+        /// thực hiện thay đổi thông tin sản phẩm
+        /// </summary>
+        /// <param name="product"></param>
+        /// <param name="addCount"></param>
+        /// <returns>thông báo thay đổi thành cong hoặc thất bại</returns>
+        ///  createdby:dvquan
         [HttpPost]
         public ActionResult Edit(Product product, int?addCount)
         {
@@ -135,7 +168,12 @@ namespace OnlineShop.Areas.Admin.Controllers
             return View("Select");
         }
 
-
+        /// <summary>
+        /// xóa sản phẩm
+        /// </summary>
+        /// <param name="id">id sản phẩm</param>
+        /// <returns></returns>
+        ///  createdby:dvquan
         [HttpDelete] // xoa san pham
         public ActionResult Delete(int id)
         {
@@ -144,14 +182,23 @@ namespace OnlineShop.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
-        // viewbag truyen dropdownlist category
+        /// <summary>
+        /// viewbag truyen dropdownlist category
+        /// lấy danh sách loại sản phẩm
+        /// </summary>
+        /// <param name="selectedId"></param>
+        ///  createdby:dvquan
         public void SetViewBag(long? selectedId = null)
         {
             var dao = new CategoryDao();
             ViewBag.CategoryID = new SelectList(dao.AllList(), "ID", "Name", selectedId);
         }
 
-        // thay doi trang thai san pham
+        /// <summary> 
+        /// thay doi trang thai san pham
+        /// </summary>
+        /// <param name="id">id loại sản phẩm</param>
+        /// <returns></returns>
         public JsonResult ChangeStatus(long id)
         {
             var result = new ProductDao().ChangeStatus(id);
@@ -198,6 +245,7 @@ namespace OnlineShop.Areas.Admin.Controllers
             }
 
         }
+
         /// <summary>
         /// cap nhat hinh anh cho san pham
         /// </summary>

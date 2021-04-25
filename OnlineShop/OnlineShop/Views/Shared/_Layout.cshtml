@@ -30,7 +30,7 @@
                 <div class="logo">
                     <a href="/" ref="nofollow"><img src="/assets/client/images/Logo1.png" /></a>
                 </div>
-               @{Html.RenderAction("HeaderCart", "Home");}
+                @{Html.RenderAction("HeaderCart", "Home");}
                 <script type="text/javascript">
                     function DropDown(el) {
                         this.dd = el;
@@ -52,7 +52,7 @@
                         var dd = new DropDown($('#dd'));
 
                         $(document).click(function () {
-                          
+
                             $('.wrapper-dropdown-2').removeClass('active');
                         });
 
@@ -62,26 +62,89 @@
                 <div class="clear"></div>
             </div>
             <div class="header_bottom">
-               @{Html.RenderAction("MainMenu","Home");}
+                @{Html.RenderAction("MainMenu", "Home");}
                 <div class="search_box">
                     <form action="/tim-kiem" method="get">
-                        <input type="text" id="txtKeyword" name="keyword" placeholder=" Tìm Kiếm . . ."><input style=" margin-top: -3px" type="submit" value="">
-                        <input type="text" id="txtForm" name="from" placeholder=" from . . .">
-                        <input type="text" id="txtTo" name="to" placeholder=" to . . .">
+                        <input data-toggle="modal" data-target="#exampleModalCenter" type="text"  placeholder=" Tìm Kiếm . . ."><input style=" margin-top: -3px" type="submit" value="">
+                        @*<input type="text" id="txtForm" name="from" placeholder=" from . . .">
+                        <input type="text" id="txtTo" name="to" placeholder=" to . . .">*@
+                        @*model tìm kiếm*@
+                        <!-- Button trigger modal -->
+                        @*<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                                Launch demo modal
+                            </button>*@
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Tìm kiếm sản phẩm theo tiêu chí</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top:-25px">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div style="display:flex; justify-content:space-between">
+                                            <div>Tìm kiếm theo tên hoặc mã sản phẩm:   </div>
+                                            <div> <input style="width:100%;border: 1px solid #3a863a" type="text" id="txtKeyword" name="keyword" placeholder=" Tìm Kiếm . . ."></div>
+                                        </div>
+                                        <div style="margin-top:10px">
+                                            <div>Tìm kiếm theo giá :   </div>
+                                            <div style="display:flex;justify-content:space-around">
+                                                <div style="margin-top:5px">
+                                                    <div>Giá từ</div>
+                                                    <div>
+                                                        <select name="from" style="width:150px">
+                                                            <option value="0">Chọn giá</option>
+                                                            <option value="1000000">1000000</option>
+                                                            <option value="2000000">2000000</option>
+                                                            <option value="5000000">5000000</option>
+                                                            <option value="10000000">10000000</option>
+                                                            <option value="20000000">20000000</option>
+                                                            <option value="50000000">50000000</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div style="margin-top:5px">
+                                                    <div>Giá đến</div>
+                                                    <div>
+                                                        <select name="to" style="width:150px">
+                                                            <option value="0">Chọn giá</option>
+                                                            <option value="1000000">1000000</option>
+                                                            <option value="2000000">2000000</option>
+                                                            <option value="5000000">5000000</option>
+                                                            <option value="10000000">10000000</option>
+                                                            <option value="20000000">20000000</option>
+                                                            <option value="50000000">50000000</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                                        <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </form>
                 </div>
                 <div class="clear"></div>
             </div>
-            @RenderSection("slide",required: false)
-           
+            @RenderSection("slide", required: false)
+
         </div>
         <div class="main">
-          @RenderBody()
+            @RenderBody()
         </div>
     </div>
     <div class="footer">
-       @{Html.RenderAction("Footer","Home");}
-       
+        @{Html.RenderAction("Footer", "Home");}
+
     </div>
     <script type="text/javascript">
         $(document).ready(function () {
@@ -92,7 +155,7 @@
     <a href="#" id="toTop"><span id="toTopHover"> </span></a>
 
     <script src="/assets/client/js/controller/baseController.js"></script>
-    @RenderSection("jsFooter",required:false)
+    @RenderSection("jsFooter", required: false)
 </body>
 </html>
 

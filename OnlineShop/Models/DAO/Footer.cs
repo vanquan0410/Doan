@@ -13,10 +13,19 @@ namespace Models.DAO
     public class FooterDao
     {
         OnlineShopDbContext db = null;
+        /// <summary>
+        /// khỏi tạo 
+        /// </summary>
         public FooterDao()
         {
             db = new OnlineShopDbContext();
         }
+
+        /// <summary>
+        /// lấy thông tin footer
+        /// </summary>
+        /// <returns></returns>
+        /// createdby:dvquan
         public Footer GetFooter()
         {
             return db.Footers.SingleOrDefault(x => x.Status == true);
