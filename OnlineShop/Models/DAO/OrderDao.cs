@@ -26,6 +26,7 @@ namespace Models.DAO
         {
             db = new OnlineShopDbContext();
         }
+
         /// <summary>
         /// thêm vào cơ sở dl
         /// </summary>
@@ -38,7 +39,14 @@ namespace Models.DAO
             return order.ID;
         }
 
-
+        /// <summary>
+        /// lấy tất cả danh sách 
+        /// </summary>
+        /// <param name="searchString">searchString</param>
+        /// <param name="page"></param>
+        /// <param name="pageSize"></param>
+        /// <returns>Order</returns>
+        /// createdby:dvquan
         public IEnumerable<Order> ListAllPaging(string searchString, int page, int pageSize)
         {
             IQueryable<Order> model = db.Orders;
@@ -50,6 +58,11 @@ namespace Models.DAO
             return model.OrderByDescending(x => x.CreatedDate).ToPagedList(page, pageSize);
         }
 
+        /// <summary>
+        /// thay đổi trạng thái order true
+        /// </summary>
+        /// <param name="id">id</param>
+        /// <returns>1</returns>
         public int ChangeStatusTrue(long id)
         {
             var order = db.Orders.Find(id);
@@ -58,6 +71,12 @@ namespace Models.DAO
             return 1;
         }
 
+        /// <summary>
+        /// thay đổi trạng thái order false
+        /// </summary>
+        /// <param name="id">id</param>
+        /// <returns>2</returns>
+        /// createdby:dvquan
         public int ChangeStatusFalse(long id)
         {
             var order = db.Orders.Find(id);
@@ -65,8 +84,5 @@ namespace Models.DAO
             db.SaveChanges();
             return 2;
         }
-
-
-
     }
 }

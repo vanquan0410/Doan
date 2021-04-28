@@ -4,8 +4,16 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     var category = (Models.EF.ProductCategory)ViewBag.Category;
     var relatedProducts = (List<Models.EF.Product>)ViewBag.RelatedProducts;
+    var similarProducts = ViewBag.SimilarProducts as List<Models.EF.Product>;
 }
 
+@{ 
+    <style>
+        .grid_1_of_4:first-child{
+            margin-left:16px;
+        }
+    </style>
+}
 <div class="content">
     <div class="content_top">
         <div class="back-links">
@@ -43,12 +51,12 @@
                     </div>
                     <div class="share-desc">
                         @*<div class="share">
-                            <p>Chia sẽ :</p>
-                            <ul>
-                                <li><a href="#"><img src="images/facebook.png" alt="" /></a></li>
-                                <li><a href="#"><img src="images/twitter.png" alt="" /></a></li>
-                            </ul>
-                        </div>*@
+                                <p>Chia sẽ :</p>
+                                <ul>
+                                    <li><a href="#"><img src="images/facebook.png" alt="" /></a></li>
+                                    <li><a href="#"><img src="images/twitter.png" alt="" /></a></li>
+                                </ul>
+                            </div>*@
                         <div class="button">
                             <span><a style="text-decoration" href="/them-gio-hang?productId=@Model.ID&quantity=1">Thêm vào giỏ</a></span>
                         </div>
@@ -89,7 +97,7 @@
                     });
                 });
             </script>
-            <div class="content_bottom">
+            <div class="content_bottom w160" style="width:159%">
                 <div class="heading">
                     <h3>Sản phẩm liên quan</h3>
                 </div>
@@ -98,15 +106,45 @@
                 </div>
                 <div class="clear"></div>
             </div>
-            <div class="section group">                
+            <div class="section group" style="width:160%">
                 @foreach (var item in relatedProducts)
                 {
-                  
+
                     var urlChiTiet = "/chi-tiet/" + item.MetaTitle + "-" + item.ID;
                     //var urlGioHang = "/them-gio-hang?productId=@item.ID&quantity=1";
                     <div class="grid_1_of_4 images_1_of_4">
                         <a href="@urlChiTiet"><img src="@item.Image" alt=""></a>
-                        <h2>@item.Name</h2>                        
+                        <h2>@item.Name</h2>
+                        <div class="price-details">
+                            <div class="price-number">
+                                <p><span class="rupees">@(item.Price.HasValue ? item.Price.Value.ToString("N0") : "Liên Hệ")</span></p>
+                            </div>
+                            <div class="add-cart">
+                                <h4><a href="/them-gio-hang?productId=@item.ID&quantity=1">Thêm vào giỏ hàng</a></h4>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="content_bottom" style="width:159%">
+                <div class="heading">
+                    <h3>Sản phẩm tương tự</h3>
+                </div>
+                <div class="see">
+                    <p><a href="/san-pham">Xem tất cả</a></p>
+                </div>
+                <div class="clear"></div>
+            </div>
+            @*sản phẩm tương tụ*@
+            <div class="section group " style="width:160%">
+                @foreach (var item in similarProducts)
+                {
+                    var urlChiTiet = "/chi-tiet/" + item.MetaTitle + "-" + item.ID;
+                    //var urlGioHang = "/them-gio-hang?productId=@item.ID&quantity=1";
+                    <div class="grid_1_of_4 images_1_of_4">
+                        <a href="@urlChiTiet"><img src="@item.Image" alt=""></a>
+                        <h2>@item.Name</h2>
                         <div class="price-details">
                             <div class="price-number">
                                 <p><span class="rupees">@(item.Price.HasValue ? item.Price.Value.ToString("N0") : "Liên Hệ")</span></p>
@@ -121,7 +159,7 @@
             </div>
         </div>
         <div class="rightsidebar span_3_of_1">
-            @{ Html.RenderAction("ProductCategory", "Product");}       
+            @{ Html.RenderAction("ProductCategory", "Product");}
         </div>
     </div>
 </div>

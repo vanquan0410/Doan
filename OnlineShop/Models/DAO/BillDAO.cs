@@ -10,9 +10,16 @@ namespace Models.DAO
     /// <summary>
     /// hóa đơn
     /// </summary>
+    /// createdby:dvquan
     public class BillDAO
     {
+
         OnlineShopDbContext db = null;
+
+        /// <summary>
+        /// khởi tạo
+        /// </summary>
+        /// createdby:dvquan
         public BillDAO()
         {
             db = new OnlineShopDbContext();

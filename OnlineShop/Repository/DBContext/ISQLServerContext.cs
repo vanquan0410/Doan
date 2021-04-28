@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Repository.DBContext
 {
-    public interface ISQLServerContext
+    public interface ISQLServerContext<T>
     {
 
     }

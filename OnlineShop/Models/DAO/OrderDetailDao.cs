@@ -6,13 +6,28 @@ using System.Threading.Tasks;
 using Models.EF;
 namespace Models.DAO
 {
+    /// <summary>
+    /// chi tiết hóa đơn
+    /// </summary>
+    /// createdby:dvquan
     public class OrderDetailDao
     {
-         OnlineShopDbContext db = null;
-         public OrderDetailDao()
+        OnlineShopDbContext db = null;
+
+        /// <summary>
+        /// khởi tạo
+        /// </summary>
+        public OrderDetailDao()
         {
             db = new OnlineShopDbContext();
         }
+
+        /// <summary>
+        /// thêm chi tiết hóa đơn
+        /// </summary>
+        /// <param name="detail"></param>
+        /// <returns></returns>
+        /// createdby:dvquan
         public bool Insert(OrderDetail detail)
         {
             try

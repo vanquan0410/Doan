@@ -1,11 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Models.DAO;
+using Models.EF;
 using PagedList;
 using PagedList.Mvc;
+using QuanShop.Service;
+using RestSharp;
+
 namespace OnlineShop.Controllers
 {
     /// <summary>
@@ -31,7 +38,7 @@ namespace OnlineShop.Controllers
 
         public JsonResult ListName(string q)
         {
-            
+
             var data = new ProductDao().ListName(q);
             return Json(new
             {
@@ -49,7 +56,7 @@ namespace OnlineShop.Controllers
         /// <returns></returns>
         ///createdby:dvquan
         public ActionResult Category(long cateId, int page = 1, int pageSize = 8)
-        {            
+        {
             var category = new CategoryDao().ViewDetail(cateId);
             ViewBag.Category = category;
             int totalRecord = 0;
@@ -81,7 +88,7 @@ namespace OnlineShop.Controllers
         /// <param name="pageSize"></param>
         /// <returns></returns>
         /// createdby:dvquan
-        public ActionResult Search(string from,string to, string keyword, int page = 1, int pageSize = 1)
+        public ActionResult Search(string from, string to, string keyword, int page = 1, int pageSize = 1)
         {
             string fromDetail = from;
             string toDetail = to;
@@ -94,7 +101,7 @@ namespace OnlineShop.Controllers
             {
                 toDetail = "0";
             }
-            var model = new ProductDao().Search(Convert.ToInt32(fromDetail),Convert.ToInt32(toDetail),keyword, ref totalRecord, page, pageSize);
+            var model = new ProductDao().Search(Convert.ToInt32(fromDetail), Convert.ToInt32(toDetail), keyword, ref totalRecord, page, pageSize);
 
             ViewBag.Total = totalRecord;
             ViewBag.Page = page;
@@ -118,18 +125,70 @@ namespace OnlineShop.Controllers
         /// <summary>
         /// trang xem chi tiết sản phẩm
         /// </summary>
-        /// <param name="cateId"></param>
+        /// <param name="cateId">id sản phẩm</param>
         /// <returns></returns>
         /// createdby:dvquan
-        public ActionResult Detail(long cateId)
+        public async Task<ActionResult> Detail(long cateId)
         {
-            var product = new ProductDao().ViewDetail(cateId);
-            ViewBag.Category = new ProductCategoryDao().ViewDetail(product.CategoryID.Value);            
-            ViewBag.RelatedProducts = new ProductDao().ListRelatedProducts(cateId);
-            return View(product);
+            try
+            {
+                var product = new ProductDao().ViewDetail(cateId);
+                ViewBag.Category = new ProductCategoryDao().ViewDetail(product.CategoryID.Value);
+                var RelatedProducts = new ProductDao().ListRelatedProducts(cateId);
+                //gọi api đến service KNN
+                var client = new RestClient("http://localhost:4000/api/knn/" + product.Price);
+                client.Timeout = -1;
+                var request = new RestRequest(Method.GET);
+                IRestResponse response = client.Execute(request);
+                Console.WriteLine(response.Content);
+                var res = response.Content;
+                res = res.Replace("[", "");
+                res = res.Replace("]", "");
+                res = res.Replace("\n", "");
+                if (!string.IsNullOrEmpty(res))
+                {
+                    var similar = new ProductDao().GetListProductsSimilar(res);
+                    List<Product> similarProduct = new List<Product>();
+                    int i = 0;
+                    foreach (Product rs in similar)
+                    {
+                        if (i < 8)
+                        {
+                            //Random rnd = new Random();
+                            //int r = rnd.Next(0, similar.Count() - 1);
+                            similarProduct.Add(rs);
+                            i++;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+
+                    ViewBag.SimilarProducts = similarProduct;
+                }
+
+                //lấy danh sách sản phẩm liên quan
+                List<Product> relatedProduct = new List<Product>();
+                int countRelated = 0;
+                foreach (Product rs in RelatedProducts)
+                {
+                    if (countRelated < 8)
+                    {
+                        relatedProduct.Add(rs);
+                        countRelated++;
+                    }
+                }
+                ViewBag.RelatedProducts = relatedProduct;
+
+                return View(product);
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return View();
+            }
         }
-
-       
-
     }
 }

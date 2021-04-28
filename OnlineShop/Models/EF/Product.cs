@@ -69,5 +69,10 @@
         public DateTime? TopHot { get; set; }
 
         public int? ViewCount { get; set; }
+
+        /// <summary>
+        /// nhãn của sản phẩm
+        /// </summary>
+        public string Lable { get; set; }
     }
 }
