@@ -1958,6 +1958,10 @@
       <Project>{782a86f9-83fb-4b8c-a630-6557fe7b23a5}</Project>
       <Name>Models</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Repository\Repository.csproj">
+      <Project>{0ef59e9c-c722-4324-98fa-fecb3a954d27}</Project>
+      <Name>Repository</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Service\Service.csproj">
       <Project>{caec64fc-583b-42ab-9a13-d72090a71e43}</Project>
       <Name>Service</Name>

@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Models.DAO;
 using Models.EF;
+using Models.Utilitie;
 using PagedList;
 using PagedList.Mvc;
 using QuanShop.Service;
@@ -136,7 +137,7 @@ namespace OnlineShop.Controllers
                 ViewBag.Category = new ProductCategoryDao().ViewDetail(product.CategoryID.Value);
                 var RelatedProducts = new ProductDao().ListRelatedProducts(cateId);
                 //gọi api đến service KNN
-                var client = new RestClient("http://localhost:4000/api/knn/" + product.Price);
+                var client = new RestClient(Contains.HostServiceKNN + SubPathKNN.GetLable + product.Price);
                 client.Timeout = -1;
                 var request = new RestRequest(Method.GET);
                 IRestResponse response = client.Execute(request);
@@ -147,15 +148,13 @@ namespace OnlineShop.Controllers
                 res = res.Replace("\n", "");
                 if (!string.IsNullOrEmpty(res))
                 {
-                    var similar = new ProductDao().GetListProductsSimilar(res);
+                    var similar = await new ProductDao().GetListProductsSimilar(res, product.CategoryID.ToString());
                     List<Product> similarProduct = new List<Product>();
                     int i = 0;
                     foreach (Product rs in similar)
                     {
                         if (i < 8)
                         {
-                            //Random rnd = new Random();
-                            //int r = rnd.Next(0, similar.Count() - 1);
                             similarProduct.Add(rs);
                             i++;
                         }
@@ -164,7 +163,6 @@ namespace OnlineShop.Controllers
                             break;
                         }
                     }
-
                     ViewBag.SimilarProducts = similarProduct;
                 }
 

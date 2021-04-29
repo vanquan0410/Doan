@@ -12,6 +12,8 @@ using System.Web.Script.Serialization;
 using System.Xml.Linq;
 using Common;
 using NLog;
+using RestSharp;
+using Models.Utilitie;
 
 namespace OnlineShop.Areas.Admin.Controllers
 {
@@ -74,7 +76,7 @@ namespace OnlineShop.Areas.Admin.Controllers
         [HttpPost] // them san pham
         public ActionResult Create(Product product)
         {
-            if (product.Name != null)
+            if (!string.IsNullOrEmpty(product.Name))
             {
                 if (ModelState.IsValid)
                 {
@@ -89,6 +91,23 @@ namespace OnlineShop.Areas.Admin.Controllers
                     product.MetaDescriptions = product.MetaTitle;
                     product.TopHot = DateTime.Now;
                     product.ViewCount = 0;
+
+                    //call api lấy nhãn của sản phẩm(thêm mới sản phẩm)
+                    var client = new RestClient(Contains.HostServiceKNN + SubPathKNN.GetLable + product.Price);
+                    client.Timeout = -1;
+                    var request = new RestRequest(Method.POST);
+                    IRestResponse response = client.Execute(request);
+                    Console.WriteLine(response.Content);
+                    var res = response.Content;
+                    res = res.Replace("[", "");
+                    res = res.Replace("]", "");
+                    res = res.Replace("\n", "");
+
+                    if (!string.IsNullOrEmpty(res))
+                    {
+                        //nhãn của sản phẩm
+                        product.Lable = res;
+                    }
                     //product.CategoryID = 1;
                     long id = dao.Insert(product);
                     if (id > 0)

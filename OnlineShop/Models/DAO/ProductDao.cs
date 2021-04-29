@@ -192,11 +192,12 @@ namespace Models.DAO
         /// lấy danh sách sản phẩm tương tự sử dụng thuật toán KNN
         /// </summary>
         /// <param name="lable">nhãn của sản phẩm</param>
+        /// <param name="categoryID">id loại sản phẩm</param>
         /// <returns>ds sp</returns>
         /// createdby:dvquan
-        public List<Product> GetListProductsSimilar(string lable)
+        public async  Task<List<Product>> GetListProductsSimilar(string lable,string categoryID)
         {
-            return db.Products.Where(x => x.Lable == lable).ToList();
+            return db.Products.Where(x => x.Lable == lable && x.CategoryID.ToString()==categoryID).ToList();
         }
 
         /// <summary>

@@ -140,7 +140,7 @@
             <div class="section group " style="width:160%">
                 @if (similarProducts.Count > 0)
                 {
-                    @foreach (var item in similarProducts)
+                    foreach (var item in similarProducts)
                     {
                         var urlChiTiet = "/chi-tiet/" + item.MetaTitle + "-" + item.ID;
                         //var urlGioHang = "/them-gio-hang?productId=@item.ID&quantity=1";
