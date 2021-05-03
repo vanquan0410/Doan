@@ -12,12 +12,20 @@ namespace OnlineShop.Areas.Admin.Controllers
     /// </summary>
     public class ContentController : BaseController
     {
+        /// <summary>
+        /// trang content
+        /// </summary>
+        /// <returns></returns>
         // GET: Admin/Content
         public ActionResult Index()
         {
             return View();
         }
 
+        /// <summary>
+        /// tạo content
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Create()
         {
             SetViewBag();
@@ -25,7 +33,10 @@ namespace OnlineShop.Areas.Admin.Controllers
         }
 
 
-
+        /// <summary>
+        /// SetViewBag
+        /// </summary>
+        /// <param name="selectedId"></param>
         public void SetViewBag(long? selectedId = null)
         {
             var dao = new CategoryDao();

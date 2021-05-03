@@ -5,35 +5,128 @@ namespace Models.EF
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
 
+    /// <summary>
+    /// OnlineShopDbContext
+    /// </summary>
     public partial class OnlineShopDbContext : DbContext
     {
+        /// <summary>
+        /// OnlineShopDbContext
+        /// </summary>
         public OnlineShopDbContext()
             : base("name=OnlineShopDbContext")
         {
         }
 
+        /// <summary>
+        /// bang Abouts
+        /// </summary>
         public virtual DbSet<About> Abouts { get; set; }
+
+        /// <summary>
+        /// Categories
+        /// </summary>
         public virtual DbSet<Category> Categories { get; set; }
+
+        /// <summary>
+        /// Contacts
+        /// </summary>
         public virtual DbSet<Contact> Contacts { get; set; }
+
+        /// <summary>
+        /// Contents
+        /// </summary>
         public virtual DbSet<Content> Contents { get; set; }
+
+        /// <summary>
+        /// ContentTags
+        /// </summary>
         public virtual DbSet<ContentTag> ContentTags { get; set; }
+
+        /// <summary>
+        /// Credentials
+        /// </summary>
         public virtual DbSet<Credential> Credentials { get; set; }
+
+        /// <summary>
+        /// Feedbacks
+        /// </summary>
         public virtual DbSet<Feedback> Feedbacks { get; set; }
+
+        /// <summary>
+        /// Footers
+        /// </summary>
         public virtual DbSet<Footer> Footers { get; set; }
+
+        /// <summary>
+        /// Languages
+        /// </summary>
         public virtual DbSet<Language> Languages { get; set; }
+
+        /// <summary>
+        /// Menus
+        /// </summary>
         public virtual DbSet<Menu> Menus { get; set; }
+
+        /// <summary>
+        /// MenuTypes
+        /// </summary>
         public virtual DbSet<MenuType> MenuTypes { get; set; }
+
+        /// <summary>
+        /// Orders
+        /// </summary>
         public virtual DbSet<Order> Orders { get; set; }
+
+        /// <summary>
+        /// OrderDetails
+        /// </summary>
         public virtual DbSet<OrderDetail> OrderDetails { get; set; }
+
+        /// <summary>
+        /// Products
+        /// </summary>
         public virtual DbSet<Product> Products { get; set; }
+
+        /// <summary>
+        /// ProductCategories
+        /// </summary>
         public virtual DbSet<ProductCategory> ProductCategories { get; set; }
+
+        /// <summary>
+        /// Roles
+        /// </summary>
         public virtual DbSet<Role> Roles { get; set; }
+
+        /// <summary>
+        /// Slides
+        /// </summary>
         public virtual DbSet<Slide> Slides { get; set; }
+
+        /// <summary>
+        /// SystemConfigs
+        /// </summary>
         public virtual DbSet<SystemConfig> SystemConfigs { get; set; }
+
+        /// <summary>
+        /// Tags
+        /// </summary>
         public virtual DbSet<Tag> Tags { get; set; }
+
+        /// <summary>
+        /// Users
+        /// </summary>
         public virtual DbSet<User> Users { get; set; }
+
+        /// <summary>
+        /// UserGroups
+        /// </summary>
         public virtual DbSet<UserGroup> UserGroups { get; set; }
 
+        /// <summary>
+        /// OnModelCreating
+        /// </summary>
+        /// <param name="modelBuilder">modelBuilder</param>
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<About>()

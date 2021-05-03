@@ -10,7 +10,10 @@ namespace OnlineShop.Areas.Admin.Controllers
     {
         //
         // GET: /Admin/Statistical/
-
+        /// <summary>
+        /// StatisticalController
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
 

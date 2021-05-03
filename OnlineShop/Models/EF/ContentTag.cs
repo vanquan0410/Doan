@@ -6,14 +6,23 @@ namespace Models.EF
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
+    /// <summary>
+    /// ContentTag
+    /// </summary>
     [Table("ContentTag")]
     public partial class ContentTag
     {
+        /// <summary>
+        /// ContentID
+        /// </summary>
         [Key]
         [Column(Order = 0)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public long ContentID { get; set; }
 
+        /// <summary>
+        /// TagID
+        /// </summary>
         [Key]
         [Column(Order = 1)]
         [StringLength(50)]

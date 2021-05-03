@@ -12,6 +12,10 @@ namespace OnlineShop.Areas.Admin.Controllers
     /// createdby:qvquan
     public class HomeController : BaseController
     {
+        /// <summary>
+        /// home
+        /// </summary>
+        /// <returns></returns>
         // GET: Admin/Home
         public ActionResult Index()
         {

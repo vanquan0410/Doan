@@ -1,58 +1,132 @@
-﻿@model IEnumerable<Models.ViewModel.StatisticalViewModel>
-
+﻿@*@model IEnumerable<Models.ViewModel.StatisticalViewModel>*@
+@using PagedList.Mvc;
+@model PagedList.IPagedList<Models.ViewModel.StatisticalViewModel>
 @{
     ViewBag.Title = "Select";
     Layout = "~/Areas/Admin/Views/Shared/_Layouts.cshtml";
+
+}
+@{
+
 }
 
-<h2>Select</h2>
+<h2>Thống kê</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @*@Html.ActionLink("Create New", "Create")*@
 </p>
-<table border="1">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.PromotionPrice)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CreatedDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CreatedBy)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ModifiedDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ModifiedBy)
-        </th>
-        <th></th>
-    </tr>
+@using (Html.BeginForm("Select", "Slide", FormMethod.Get))
+{
+    <h4>Lọc thông tin theo khoảng thời gian</h4>
+    <div class="row form-group">
+        <div class="col-lg-12">
+            <div class="col-md-4">
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.PromotionPrice)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreatedDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreatedBy)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ModifiedDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ModifiedBy)
-        </td>
-        <td>
-           @* @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })*@
-        </td>
-    </tr>
+                <input type="date" value="@ViewBag.searchStringStart" class="form-control" name="searchStringStart" />
+                <input type="date" value="@ViewBag.searchStringEnd" class="form-control" name="searchStringEnd" style="margin-top:10px" />
+            </div>
+            <div class="col-md-4">
+                <button type="submit" class="btn btn-success">Tra cứu</button>
+                @*<a class="btn btn-primary" href="/Admin/Product/Create">Thêm mới</a>*@
+            </div>
+        </div>
+    </div>
+}
+@*xuất bản*@
+@using (Html.BeginForm("publish", "Slide", FormMethod.Post))
+{
+    <div style="margin-top:-60px">
+        <div class="row" >
+            <div class="col-lg-12">
+                <div class="col-md-4  "  style="width:100%">
+                    <input style="visibility:hidden; height:0px" type="date" value="@ViewBag.searchStringStart" class="form-control" name="searchStart" />
+                    <input style="visibility:hidden" type="date" value="@ViewBag.searchStringEnd" class="form-control" name="searchEnd" />
+                    <button type="submit" style="float:right" class="btn btn-success">Xuất bản</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 }
 
-</table>
+<div style="padding-bottom:2px ">
+    Danh sách các đơn hàng
+</div>
+<div style="padding-bottom:20px">
+
+
+
+    <table border="1">
+
+        <tr>
+
+            <th width="10%">
+                Id
+            </th>
+
+            <th>
+                @*@Html.DisplayNameFor(model => model.ModifiedDate)*@
+                Tên sản phẩm
+            </th>
+            <th width="20%">
+                @*@Html.DisplayNameFor(model => model.PromotionPrice)*@
+                Đơn giá
+            </th>
+
+            <th width="20%">
+                @* @Html.DisplayNameFor(model => model.CreatedDate)*@
+                Ngày thanh toán
+            </th>
+            <th width="20%">
+                @* @Html.DisplayNameFor(model => model.CreatedBy)*@
+                Người xác nhận
+            </th>
+            <th>
+                @* @Html.DisplayNameFor(model => model.ModifiedBy)*@
+                Số lượng còn lại
+            </th>
+
+
+            <th></th>
+        </tr>
+
+
+
+
+
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PromotionPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ShipName)
+                </td>
+
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    @* @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+                        @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+                        @Html.ActionLink("Delete", "Delete", new { id=item.ID })*@
+                </td>
+            </tr>
+        }
+
+    </table>
+    @Html.PagedListPager(Model, page => Url.Action("Select", new { page, @searchStringStart = @ViewBag.searchStringStart, @searchStringEnd = ViewBag.searchStringEnd }))
+</div>

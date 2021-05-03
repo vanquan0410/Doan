@@ -1,0 +1,775 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "title" : "CustomerApi",
+    "version" : "1.0"
+  },
+  "servers" : [ {
+    "url" : "http://localhost:3000"
+  } ],
+  "paths" : {
+    "/customer" : {
+      "delete" : {
+        "parameters" : [ {
+          "description" : "ID người dùng",
+          "explode" : true,
+          "in" : "query",
+          "name" : "CustomerId",
+          "required" : true,
+          "schema" : {
+            "format" : "uuid",
+            "type" : "string"
+          },
+          "style" : "form"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "examples" : {
+                  "200InitializeLanguage" : {
+                    "value" : {
+                      "notify" : "OK"
+                    }
+                  }
+                },
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseResult"
+                }
+              }
+            },
+            "description" : "Xóa khách hàng."
+          },
+          "400" : {
+            "content" : {
+              "application/json" : {
+                "examples" : {
+                  "400ReturnInvalidInput" : {
+                    "$ref" : "#/components/examples/400ReturnInvalidInput"
+                  },
+                  "400ReturnInvalidInputValidationNull" : {
+                    "$ref" : "#/components/examples/400ReturnInvalidInputValidationNull"
+                  }
+                },
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Bad Request"
+          },
+          "500" : {
+            "content" : {
+              "application/json" : {
+                "examples" : {
+                  "500ReturnException" : {
+                    "$ref" : "#/components/examples/500ReturnException"
+                  }
+                },
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Internal Server Error"
+          }
+        },
+        "summary" : "xóa khách hàng",
+        "tags" : [ "CustomerInfo" ]
+      },
+      "get" : {
+        "description" : "lấy danh sách khách hàng",
+        "operationId" : "get-customers",
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "examples" : {
+                  "200Get10Customers" : {
+                    "$ref" : "#/components/examples/200Get10Customers"
+                  },
+                  "200Get5Customers" : {
+                    "$ref" : "#/components/examples/200Get5Customers"
+                  }
+                },
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseResult"
+                }
+              }
+            },
+            "description" : "trả dữu liệu thành công"
+          },
+          "400" : {
+            "content" : {
+              "application/json" : {
+                "examples" : {
+                  "400ReturnInvalidInput" : {
+                    "$ref" : "#/components/examples/400ReturnInvalidInput"
+                  },
+                  "400ReturnInvalidInputValidationNull" : {
+                    "$ref" : "#/components/examples/400ReturnInvalidInputValidationNull"
+                  }
+                },
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Bad Request"
+          },
+          "500" : {
+            "content" : {
+              "application/json" : {
+                "examples" : {
+                  "500ReturnException" : {
+                    "$ref" : "#/components/examples/500ReturnException"
+                  }
+                },
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Internal Server Error"
+          }
+        },
+        "summary" : "lấy danh sách khách hàng",
+        "tags" : [ "CustomerInfo" ]
+      },
+      "post" : {
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ResponseResult"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "201" : {
+            "content" : {
+              "application/json" : {
+                "examples" : {
+                  "200UpdateExchangeRate" : {
+                    "$ref" : "#/components/examples/200UpdateExchangeRate"
+                  }
+                },
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseResult"
+                }
+              }
+            },
+            "description" : "thêm thành công."
+          },
+          "400" : {
+            "content" : {
+              "application/json" : {
+                "examples" : {
+                  "400ReturnInvalidInput" : {
+                    "$ref" : "#/components/examples/400ReturnInvalidInput"
+                  },
+                  "400ReturnInvalidInputValidationNull" : {
+                    "$ref" : "#/components/examples/400ReturnInvalidInputValidationNull"
+                  }
+                },
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Bad Request"
+          },
+          "500" : {
+            "content" : {
+              "application/json" : {
+                "examples" : {
+                  "500ReturnException" : {
+                    "$ref" : "#/components/examples/500ReturnException"
+                  }
+                },
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Internal Server Error"
+          }
+        },
+        "summary" : "thêm khách hàng",
+        "tags" : [ "CustomerInfo" ]
+      },
+      "put" : {
+        "parameters" : [ {
+          "description" : "ID người dùng",
+          "explode" : true,
+          "in" : "query",
+          "name" : "EmployeeId",
+          "required" : true,
+          "schema" : {
+            "format" : "uuid",
+            "type" : "string"
+          },
+          "style" : "form"
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ResponseResult"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "examples" : {
+                  "200UpdateExchangeRate" : {
+                    "$ref" : "#/components/examples/200UpdateExchangeRate"
+                  }
+                },
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseResult"
+                }
+              }
+            },
+            "description" : "cập nhật thành công."
+          },
+          "400" : {
+            "content" : {
+              "application/json" : {
+                "examples" : {
+                  "400ReturnInvalidInput" : {
+                    "$ref" : "#/components/examples/400ReturnInvalidInput"
+                  },
+                  "400ReturnInvalidInputValidationNull" : {
+                    "$ref" : "#/components/examples/400ReturnInvalidInputValidationNull"
+                  }
+                },
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Bad Request"
+          },
+          "500" : {
+            "content" : {
+              "application/json" : {
+                "examples" : {
+                  "500ReturnException" : {
+                    "$ref" : "#/components/examples/500ReturnException"
+                  }
+                },
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Internal Server Error"
+          }
+        },
+        "summary" : "sửa thong tin khach hang",
+        "tags" : [ "CustomerInfo" ]
+      }
+    },
+    "/customer/{customerid}" : {
+      "get" : {
+        "operationId" : "get-customer-customerid",
+        "parameters" : [ {
+          "explode" : false,
+          "in" : "path",
+          "name" : "customerid",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "simple"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "examples" : {
+                  "200GetCustomerById" : {
+                    "$ref" : "#/components/examples/200GetCustomerById"
+                  }
+                },
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponseResult"
+                }
+              }
+            },
+            "description" : "trả dữu liệu thành công"
+          },
+          "400" : {
+            "content" : {
+              "application/json" : {
+                "examples" : {
+                  "400ReturnInvalidInput" : {
+                    "$ref" : "#/components/examples/400ReturnInvalidInput"
+                  },
+                  "400ReturnInvalidInputValidationNull" : {
+                    "$ref" : "#/components/examples/400ReturnInvalidInputValidationNull"
+                  }
+                },
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Bad Request"
+          },
+          "500" : {
+            "content" : {
+              "application/json" : {
+                "examples" : {
+                  "500ReturnException" : {
+                    "$ref" : "#/components/examples/500ReturnException"
+                  }
+                },
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Internal Server Error"
+          }
+        },
+        "summary" : "lấy thông tin khác hàng theo ID",
+        "tags" : [ "CustomerInfo" ]
+      }
+    },
+    "/countpage" : {
+      "get" : {
+        "operationId" : "get-countpage",
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "examples" : {
+                  "ResponsePage" : {
+                    "$ref" : "#/components/examples/ResponsePage"
+                  }
+                },
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResponsePage"
+                }
+              }
+            },
+            "description" : "trả dữu liệu thành công"
+          }
+        },
+        "summary" : "lấy số lượng bản ghi khách hàng",
+        "tags" : [ "CustomerInfo" ]
+      }
+    }
+  },
+  "components" : {
+    "examples" : {
+      "200Get10Customers" : {
+        "value" : [ {
+          "CustomerId" : "e709b020-1b81-48c2-b9bc-f8d9518d13ab",
+          "CustomerCode" : "kh0001",
+          "CustomerName" : "Trần thị anh",
+          "Email" : "abc@fmail.com",
+          "CompanyName" : "cong ty phan mem",
+          "CustomerGroupId" : "cfa09661-bdfc-49a0-ad2c-fc83a1610000",
+          "DebitMoney" : 1000000,
+          "Address" : "dan phuong",
+          "PhoneNumber" : 9.8545688E7,
+          "DateOfBirth" : "2000-10-10"
+        }, {
+          "CustomerId" : "e709b020-1b81-48c2-b9bc-f8d9518d13ab",
+          "CustomerCode" : "kh0002",
+          "CustomerName" : "Trần thị anh",
+          "Email" : "abc@fmail.com",
+          "CompanyName" : "cong ty phan mem",
+          "CustomerGroupId" : "cfa09661-bdfc-49a0-ad2c-fc83a1610000",
+          "DebitMoney" : 1000000,
+          "Address" : "dan phuong",
+          "PhoneNumber" : 9.8545688E7,
+          "DateOfBirth" : "2000-10-10"
+        }, {
+          "CustomerId" : "e709b020-1b81-48c2-b9bc-f8d9518d13ab",
+          "CustomerCode" : "kh0003",
+          "CustomerName" : "Trần thị anh",
+          "Email" : "abc@fmail.com",
+          "CompanyName" : "cong ty phan mem",
+          "CustomerGroupId" : "cfa09661-bdfc-49a0-ad2c-fc83a1610000",
+          "DebitMoney" : 1000000,
+          "Address" : "dan phuong",
+          "PhoneNumber" : 9.8545688E7,
+          "DateOfBirth" : "2000-10-10"
+        }, {
+          "CustomerId" : "e709b020-1b81-48c2-b9bc-f8d9518d13ab",
+          "CustomerCode" : "kh0004",
+          "CustomerName" : "Trần thị anh",
+          "Email" : "abc@fmail.com",
+          "CompanyName" : "cong ty phan mem",
+          "CustomerGroupId" : "cfa09661-bdfc-49a0-ad2c-fc83a1610000",
+          "DebitMoney" : 1000000,
+          "Address" : "dan phuong",
+          "PhoneNumber" : 9.8545688E7,
+          "DateOfBirth" : "2000-10-10"
+        }, {
+          "CustomerId" : "e709b020-1b81-48c2-b9bc-f8d9518d13ab",
+          "CustomerCode" : "kh0005",
+          "CustomerName" : "Trần thị anh",
+          "Email" : "abc@fmail.com",
+          "CompanyName" : "cong ty phan mem",
+          "CustomerGroupId" : "cfa09661-bdfc-49a0-ad2c-fc83a1610000",
+          "DebitMoney" : 1000000,
+          "Address" : "dan phuong",
+          "PhoneNumber" : 9.8545688E7,
+          "DateOfBirth" : "2000-10-10"
+        }, {
+          "CustomerId" : "e709b020-1b81-48c2-b9bc-f8d9518d13ab",
+          "CustomerCode" : "kh0006",
+          "CustomerName" : "Trần thị anh",
+          "Email" : "abc@fmail.com",
+          "CompanyName" : "cong ty phan mem",
+          "CustomerGroupId" : "cfa09661-bdfc-49a0-ad2c-fc83a1610000",
+          "DebitMoney" : 1000000,
+          "Address" : "dan phuong",
+          "PhoneNumber" : 9.8545688E7,
+          "DateOfBirth" : "2000-10-10"
+        }, {
+          "CustomerId" : "e709b020-1b81-48c2-b9bc-f8d9518d13ab",
+          "CustomerCode" : "kh0007",
+          "CustomerName" : "Trần thị anh",
+          "Email" : "abc@fmail.com",
+          "CompanyName" : "cong ty phan mem",
+          "CustomerGroupId" : "cfa09661-bdfc-49a0-ad2c-fc83a1610000",
+          "DebitMoney" : 1000000,
+          "Address" : "dan phuong",
+          "PhoneNumber" : 9.8545688E7,
+          "DateOfBirth" : "2000-10-10"
+        }, {
+          "CustomerId" : "e709b020-1b81-48c2-b9bc-f8d9518d13ab",
+          "CustomerCode" : "kh0008",
+          "CustomerName" : "Trần thị anh",
+          "Email" : "abc@fmail.com",
+          "CompanyName" : "cong ty phan mem",
+          "CustomerGroupId" : "cfa09661-bdfc-49a0-ad2c-fc83a1610000",
+          "DebitMoney" : 1000000,
+          "Address" : "dan phuong",
+          "PhoneNumber" : 9.8545688E7,
+          "DateOfBirth" : "2000-10-10"
+        }, {
+          "CustomerId" : "e709b020-1b81-48c2-b9bc-f8d9518d13ab",
+          "CustomerCode" : "kh0009",
+          "CustomerName" : "Trần thị anh",
+          "Email" : "abc@fmail.com",
+          "CompanyName" : "cong ty phan mem",
+          "CustomerGroupId" : "cfa09661-bdfc-49a0-ad2c-fc83a1610000",
+          "DebitMoney" : 1000000,
+          "Address" : "dan phuong",
+          "PhoneNumber" : 9.8545688E7,
+          "DateOfBirth" : "2000-10-10"
+        } ]
+      },
+      "200Get5Customers" : {
+        "value" : [ {
+          "CustomerId" : "e709b020-1b81-48c2-b9bc-f8d9518d13ab",
+          "CustomerCode" : "kh0001",
+          "CustomerName" : "Trần thị anh",
+          "Email" : "abc@fmail.com",
+          "CompanyName" : "cong ty phan mem",
+          "CustomerGroupId" : "cfa09661-bdfc-49a0-ad2c-fc83a1610000",
+          "DebitMoney" : 1000000,
+          "Address" : "dan phuong",
+          "PhoneNumber" : 9.8545688E7,
+          "DateOfBirth" : "2000-10-10"
+        }, {
+          "CustomerId" : "e709b020-1b81-48c2-b9bc-f8d9518d13ab",
+          "CustomerCode" : "kh0002",
+          "CustomerName" : "Trần thị anh",
+          "Email" : "abc@fmail.com",
+          "CompanyName" : "cong ty phan mem",
+          "CustomerGroupId" : "cfa09661-bdfc-49a0-ad2c-fc83a1610000",
+          "DebitMoney" : 1000000,
+          "Address" : "dan phuong",
+          "PhoneNumber" : 9.8545688E7,
+          "DateOfBirth" : "2000-10-10"
+        }, {
+          "CustomerId" : "e709b020-1b81-48c2-b9bc-f8d9518d13ab",
+          "CustomerCode" : "kh0003",
+          "CustomerName" : "Trần thị anh",
+          "Email" : "abc@fmail.com",
+          "CompanyName" : "cong ty phan mem",
+          "CustomerGroupId" : "cfa09661-bdfc-49a0-ad2c-fc83a1610000",
+          "DebitMoney" : 1000000,
+          "Address" : "dan phuong",
+          "PhoneNumber" : 9.8545688E7,
+          "DateOfBirth" : "2000-10-10"
+        }, {
+          "CustomerId" : "e709b020-1b81-48c2-b9bc-f8d9518d13ab",
+          "CustomerCode" : "kh0004",
+          "CustomerName" : "Trần thị anh",
+          "Email" : "abc@fmail.com",
+          "CompanyName" : "cong ty phan mem",
+          "CustomerGroupId" : "cfa09661-bdfc-49a0-ad2c-fc83a1610000",
+          "DebitMoney" : 1000000,
+          "Address" : "dan phuong",
+          "PhoneNumber" : 9.8545688E7,
+          "DateOfBirth" : "2000-10-10"
+        }, {
+          "CustomerId" : "e709b020-1b81-48c2-b9bc-f8d9518d13ab",
+          "CustomerCode" : "kh0005",
+          "CustomerName" : "Trần thị anh",
+          "Email" : "abc@fmail.com",
+          "CompanyName" : "cong ty phan mem",
+          "CustomerGroupId" : "cfa09661-bdfc-49a0-ad2c-fc83a1610000",
+          "DebitMoney" : 1000000,
+          "Address" : "dan phuong",
+          "PhoneNumber" : 9.8545688E7,
+          "DateOfBirth" : "2000-10-10"
+        }, {
+          "CustomerId" : "e709b020-1b81-48c2-b9bc-f8d9518d13ab",
+          "CustomerCode" : "kh0006",
+          "CustomerName" : "Trần thị anh",
+          "Email" : "abc@fmail.com",
+          "CompanyName" : "cong ty phan mem",
+          "CustomerGroupId" : "cfa09661-bdfc-49a0-ad2c-fc83a1610000",
+          "DebitMoney" : 1000000,
+          "Address" : "dan phuong",
+          "PhoneNumber" : 9.8545688E7,
+          "DateOfBirth" : "2000-10-10"
+        } ]
+      },
+      "200UpdateExchangeRate" : {
+        "value" : {
+          "resultMessage" : "Success"
+        }
+      },
+      "200GetCustomerById" : {
+        "value" : [ {
+          "CustomerId" : "e709b020-1b81-48c2-b9bc-f8d9518d13ab",
+          "CustomerCode" : "kh0001",
+          "CustomerName" : "Trần thị anh",
+          "Email" : "abc@fmail.com",
+          "CompanyName" : "cong ty phan mem",
+          "CustomerGroupId" : "cfa09661-bdfc-49a0-ad2c-fc83a1610000",
+          "DebitMoney" : 1000000,
+          "Address" : "dan phuong",
+          "PhoneNumber" : 9.8545688E7,
+          "DateOfBirth" : "2000-10-10"
+        } ]
+      },
+      "ResponsePage" : {
+        "value" : {
+          "CountPage" : 1000
+        }
+      },
+      "400ReturnInvalidInput" : {
+        "value" : {
+          "devMSG" : "The request was invalid or cannot be otherwise served.",
+          "userMsg" : "Thông tin đúng định dạng.",
+          "errorCode" : "CM-0001",
+          "moreInfo" : "https://openapi.misa.com.vn/errorcode/CM-0001",
+          "traceId" : "ba9587fd-1a79-4ac5-a0ca-2c9f74dfd3fb",
+          "validationFailures" : [ {
+            "property" : "email",
+            "failureReason" : "email address is invalid."
+          }, {
+            "property" : "city",
+            "failureReason" : "city address is invalid."
+          } ]
+        }
+      },
+      "400ReturnInvalidInputValidationNull" : {
+        "value" : {
+          "devMSG" : "The request was invalid or cannot be otherwise served.",
+          "userMsg" : "Thông tin đúng định dạng.",
+          "errorCode" : "CM-0001",
+          "moreInfo" : "https://openapi.misa.com.vn/errorcode/CM-0001",
+          "traceId" : "ba9587fd-1a79-4ac5-a0ca-2c9f74dfd3fb",
+          "validationFailures" : [ null ]
+        }
+      },
+      "500ReturnException" : {
+        "value" : {
+          "devMSG" : "The server encountered an unexpected condition which prevented it from fulfilling the request.",
+          "userMsg" : "Có lỗi xảy ra! vui lòng liên hệ với MISA.",
+          "errorCode" : "CM-0002",
+          "moreInfo" : "https://openapi.misa.com.vn/errorcode/CM-0002",
+          "traceId" : "dc2f5361-a879-4164-a757-826536a81166"
+        }
+      }
+    },
+    "responses" : {
+      "400" : {
+        "$ref" : "../common/models/responses.v1.yaml#/components/responses/400"
+      },
+      "500" : {
+        "$ref" : "../common/models/responses.v1.yaml#/components/responses/500"
+      }
+    },
+    "schemas" : {
+      "ResponseResult" : {
+        "example" : {
+          "DateOfBirth" : "2000-01-23",
+          "CompanyName" : "CompanyName",
+          "DebitMoney" : 0.8008281904610115,
+          "Email" : "Email",
+          "CustomerGroupId" : "046b6c7f-0b8a-43b9-b35d-6489e6daee91",
+          "Address" : "Address",
+          "CustomerCode" : "CustomerCode",
+          "PhoneNumber" : "PhoneNumber",
+          "CustomerId" : "046b6c7f-0b8a-43b9-b35d-6489e6daee91",
+          "CustomerName" : "CustomerName"
+        },
+        "properties" : {
+          "CustomerId" : {
+            "description" : "id khách hàng",
+            "format" : "uuid",
+            "type" : "string"
+          },
+          "CustomerCode" : {
+            "description" : "mã khách hàng",
+            "type" : "string"
+          },
+          "CustomerName" : {
+            "description" : "tên khách hàng",
+            "type" : "string"
+          },
+          "Email" : {
+            "description" : "email khách hàng",
+            "type" : "string"
+          },
+          "CompanyName" : {
+            "description" : "tên công ty",
+            "type" : "string"
+          },
+          "CustomerGroupId" : {
+            "description" : "id nhóm khách hàng",
+            "format" : "uuid",
+            "type" : "string"
+          },
+          "DebitMoney" : {
+            "description" : "sô tiền nợ của khách hàng",
+            "type" : "number"
+          },
+          "Address" : {
+            "description" : "dịa chỉ khách hàng",
+            "type" : "string"
+          },
+          "PhoneNumber" : {
+            "description" : "số diện thoại khách hàng",
+            "type" : "string"
+          },
+          "DateOfBirth" : {
+            "description" : "ngày sinh khách hàng",
+            "format" : "date",
+            "type" : "string"
+          }
+        },
+        "title" : "Customer",
+        "type" : "object"
+      },
+      "ResponsePage" : {
+        "example" : {
+          "CountPage" : 0.8008281904610115
+        },
+        "properties" : {
+          "CountPage" : {
+            "type" : "number"
+          }
+        },
+        "title" : "CountPage",
+        "type" : "object"
+      },
+      "Customer" : {
+        "example" : {
+          "DateOfBirth" : "2000-01-23",
+          "CompanyName" : "CompanyName",
+          "DebitMoney" : 0.8008281904610115,
+          "Email" : "Email",
+          "CustomerGroupId" : "046b6c7f-0b8a-43b9-b35d-6489e6daee91",
+          "Address" : "Address",
+          "CustomerCode" : "CustomerCode",
+          "PhoneNumber" : "PhoneNumber",
+          "CustomerId" : "046b6c7f-0b8a-43b9-b35d-6489e6daee91",
+          "CustomerName" : "CustomerName"
+        },
+        "properties" : {
+          "CustomerId" : {
+            "description" : "id khách hàng",
+            "format" : "uuid",
+            "type" : "string"
+          },
+          "CustomerCode" : {
+            "description" : "mã khách hàng",
+            "type" : "string"
+          },
+          "CustomerName" : {
+            "description" : "tên khách hàng",
+            "type" : "string"
+          },
+          "Email" : {
+            "description" : "email khách hàng",
+            "type" : "string"
+          },
+          "CompanyName" : {
+            "description" : "tên công ty",
+            "type" : "string"
+          },
+          "CustomerGroupId" : {
+            "description" : "id nhóm khách hàng",
+            "format" : "uuid",
+            "type" : "string"
+          },
+          "DebitMoney" : {
+            "description" : "sô tiền nợ của khách hàng",
+            "type" : "number"
+          },
+          "Address" : {
+            "description" : "dịa chỉ khách hàng",
+            "type" : "string"
+          },
+          "PhoneNumber" : {
+            "description" : "số diện thoại khách hàng",
+            "type" : "string"
+          },
+          "DateOfBirth" : {
+            "description" : "ngày sinh khách hàng",
+            "format" : "date",
+            "type" : "string"
+          }
+        },
+        "title" : "Customer",
+        "type" : "object"
+      },
+      "CountPage" : {
+        "example" : {
+          "CountPage" : 0.8008281904610115
+        },
+        "properties" : {
+          "CountPage" : {
+            "type" : "number"
+          }
+        },
+        "title" : "CountPage",
+        "type" : "object"
+      },
+      "error" : {
+        "description" : "A standard error object.",
+        "properties" : {
+          "code" : {
+            "type" : "string"
+          },
+          "message" : {
+            "type" : "string"
+          }
+        },
+        "required" : [ "code" ],
+        "title" : "Error",
+        "type" : "object",
+        "x-tags" : [ "Common" ]
+      }
+    }
+  }
+}

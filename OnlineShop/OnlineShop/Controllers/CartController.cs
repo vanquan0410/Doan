@@ -10,6 +10,10 @@ using OnlineShop.Common;
 using System.Web.Script.Serialization;
 using System.Configuration;
 using Common;
+using RestSharp;
+using Newtonsoft.Json;
+using Models.Utilitie;
+
 namespace OnlineShop.Controllers
 {
     /// <summary>
@@ -20,7 +24,7 @@ namespace OnlineShop.Controllers
     {
         // GET: /Cart/
         /// <summary>
-        /// 
+        /// trang hiển thị danh sách sản phẩm trong giỏ hàng
         /// </summary>
         /// <returns></returns>
         public ActionResult Index()
@@ -30,15 +34,76 @@ namespace OnlineShop.Controllers
             if (cart != null)
             {
                 list = (List<CartItem>)cart;
-            }            
+            }
+
+            List<string> itemID = new List<string>();
+            foreach(CartItem rs in list)
+            {
+                itemID.Add(rs.Product.ID.ToString());
+            }
+
+            //gọi api đến apriori service lấy danh sách các sản phẩm đi kem
+            var clientApriori = new RestClient("http://localhost:5000/api/apriori");
+            clientApriori.Timeout = -1;
+            var requestApriori = new RestRequest(Method.GET);
+            IRestResponse responseApriori = clientApriori.Execute(requestApriori);
+            Console.WriteLine(responseApriori.Content);
+            var resApriori = JsonConvert.DeserializeObject<AprioriItemSupport>(responseApriori.Content);
+            List<string> itemProductApriori = new List<string>();
+
+            foreach (List<string> item in resApriori.sucess)
+            {
+                bool isSuccess = false;
+                foreach (string itemSupport in item)
+                {
+                    if (item.Count > 1)
+                    {
+                        foreach(string i in itemID)
+                        {
+                            if (itemSupport == i)
+                            {
+                                isSuccess = true;
+                            }
+                        }
+                        
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                if (isSuccess == true)
+                {
+                    foreach (string itemSupport in item)
+                    {
+                        itemProductApriori.Add(itemSupport);
+                    }
+                }
+
+            }
+
+            //thực hiện remove các phần tủ trùng nhau trong mảng
+            itemProductApriori = itemProductApriori.Distinct().ToList();
+            //thực hiện qurery lấy danh sách sản phẩm
+            List<Product> productIncluded = new List<Product>();
+            foreach (string item in itemProductApriori)
+            {
+                var itemP = new ProductDao().GetById(Convert.ToInt32(item));
+                productIncluded.Add(itemP);
+
+            }
+            //gán các giá trị trả về viewBag
+            ViewBag.ProductIncluded = productIncluded;
+            
+            //trả về list danh sách các sản phẩm trong giỏ hàng
             return View(list);
-        }       
+        }
 
         /// <summary>
         /// thêm item
         /// </summary>
-        /// <param name="productId"></param>
-        /// <param name="quantity"></param>
+        /// <param name="productId">productId</param>
+        /// <param name="quantity">quantity</param>
         /// <returns></returns>
         /// createdby:dvquan
         public ActionResult AddItem(long productId, int quantity)
@@ -55,11 +120,11 @@ namespace OnlineShop.Controllers
                     {
                         if (item.Product.ID == productId)
                         {
-                            item.Quantity += quantity;                                                        
+                            item.Quantity += quantity;
                         }
-                       
+
                     }
-                  
+
                 }
                 else
                 {
@@ -85,7 +150,7 @@ namespace OnlineShop.Controllers
             }
             return RedirectToAction("Index");
         }
-       
+
         /// <summary>
         /// xóa sản phâme
         /// </summary>
@@ -169,7 +234,7 @@ namespace OnlineShop.Controllers
         /// <returns></returns>
         /// createdby:dvquan
         [HttpPost]
-        public ActionResult Payment(string shipName,string mobile,string address,string email)
+        public ActionResult Payment(string shipName, string mobile, string address, string email)
         {
             var order = new Order();
             order.CreatedDate = DateTime.Now;
@@ -183,7 +248,7 @@ namespace OnlineShop.Controllers
                 var cart = (List<CartItem>)Session[OnlineShop.Common.CommonConstants.CartSession];
                 var detailDao = new OrderDetailDao();
                 decimal total = 0;
-                foreach(var item in cart)
+                foreach (var item in cart)
                 {
                     var orderDetail = new OrderDetail();
                     orderDetail.ProductID = item.Product.ID;
@@ -192,7 +257,7 @@ namespace OnlineShop.Controllers
                     orderDetail.Quantity = item.Quantity;
                     detailDao.Insert(orderDetail);
                     //tinh tong tien
-                    total += (item.Product.Price.GetValueOrDefault(0) * item.Quantity);                    
+                    total += (item.Product.Price.GetValueOrDefault(0) * item.Quantity);
                 }
                 string content = System.IO.File.ReadAllText(Server.MapPath("~/assets/client/template/NewOrder.html"));
 
@@ -211,7 +276,7 @@ namespace OnlineShop.Controllers
             {
                 Console.WriteLine(ex.ToString());
                 //return Redirect("/loi-thanh-toan");
-              //  throw ex;
+                //  throw ex;
             }
             return Redirect("/hoan-thanh");
         }

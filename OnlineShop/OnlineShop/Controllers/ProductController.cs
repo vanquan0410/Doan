@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using Models.DAO;
 using Models.EF;
 using Models.Utilitie;
+using Newtonsoft.Json;
 using PagedList;
 using PagedList.Mvc;
 using QuanShop.Service;
@@ -24,12 +25,21 @@ namespace OnlineShop.Controllers
     {
         //
         // GET: /Product/
-
+        /// <summary>
+        /// trang danh sách sản phẩm
+        /// </summary>
+        /// <returns></returns>
+        /// createdby:dvquan
         public ActionResult Index()
         {
             return View();
         }
 
+        /// <summary>
+        /// lấy danh sách loại sản phẩm
+        /// </summary>
+        /// <returns></returns>
+        /// createdby:dvquan
         [ChildActionOnly]
         public PartialViewResult ProductCategory()
         {
@@ -37,6 +47,11 @@ namespace OnlineShop.Controllers
             return PartialView(model);
         }
 
+        /// <summary>
+        /// convert to json
+        /// </summary>
+        /// <param name="q"></param>
+        /// <returns></returns>
         public JsonResult ListName(string q)
         {
 
@@ -166,6 +181,55 @@ namespace OnlineShop.Controllers
                     ViewBag.SimilarProducts = similarProduct;
                 }
 
+                //gọi api đến apriori service lấy danh sách các sản phẩm đi kem
+                var clientApriori = new RestClient("http://localhost:5000/api/apriori");
+                clientApriori.Timeout = -1;
+                var requestApriori = new RestRequest(Method.GET);
+                IRestResponse responseApriori = clientApriori.Execute(requestApriori);
+                Console.WriteLine(responseApriori.Content);
+                var resApriori = JsonConvert.DeserializeObject<AprioriItemSupport>(responseApriori.Content);
+                List<string> itemProductApriori = new List<string>();
+
+                foreach (List<string> item in resApriori.sucess)
+                {
+                    bool isSuccess = false;
+                    foreach (string itemSupport in item)
+                    {
+                        if (item.Count > 1)
+                        {
+                            if(itemSupport== product.ID.ToString())
+                            {
+                                isSuccess = true;
+                            }
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                    if (isSuccess == true)
+                    {
+                        foreach (string itemSupport in item)
+                        {
+                            itemProductApriori.Add(itemSupport);
+                        }
+                    }
+
+                }
+
+                //thực hiện remove các phần tủ trùng nhau trong mảng
+                itemProductApriori= itemProductApriori.Distinct().ToList();
+                //thực hiện qurery lấy danh sách sản phẩm
+                List<Product> productIncluded = new List<Product>();
+                foreach(string item in itemProductApriori)
+                {
+                    var itemP = new ProductDao().GetById(Convert.ToInt32(item));
+                    productIncluded.Add(itemP);
+
+                }
+                //gán các giá trị trả về viewBag
+                ViewBag.ProductIncluded = productIncluded;
+
                 //lấy danh sách sản phẩm liên quan
                 List<Product> relatedProduct = new List<Product>();
                 int countRelated = 0;
@@ -177,6 +241,7 @@ namespace OnlineShop.Controllers
                         countRelated++;
                     }
                 }
+                //gán giá trị trả về viewbag
                 ViewBag.RelatedProducts = relatedProduct;
 
                 return View(product);

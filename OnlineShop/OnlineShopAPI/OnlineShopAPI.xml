@@ -1,0 +1,1009 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>OnlineShopAPI</name>
+    </assembly>
+    <members>
+        <member name="T:OnlineShopAPI.Attributes.ValidateModelStateAttribute">
+            <summary>
+            Model state validation attribute
+            </summary>
+        </member>
+        <member name="M:OnlineShopAPI.Attributes.ValidateModelStateAttribute.OnActionExecuting(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext)">
+            <summary>
+            Called before the action method is invoked
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="T:OnlineShopAPI.Authentication.ApiKeyRequirement">
+            <summary>
+            A requirement that an ApiKey must be present.
+            </summary>
+        </member>
+        <member name="P:OnlineShopAPI.Authentication.ApiKeyRequirement.ApiKeys">
+            <summary>
+            Get the list of api keys
+            </summary>
+        </member>
+        <member name="P:OnlineShopAPI.Authentication.ApiKeyRequirement.PolicyName">
+            <summary>
+            Get the policy name,
+            </summary>
+        </member>
+        <member name="M:OnlineShopAPI.Authentication.ApiKeyRequirement.#ctor(System.Collections.Generic.IEnumerable{System.String},System.String)">
+            <summary>
+            Create a new instance of the <see cref="T:OnlineShopAPI.Authentication.ApiKeyRequirement"/> class.
+            </summary>
+            <param name="apiKeys"></param>
+            <param name="policyName"></param>
+        </member>
+        <member name="T:OnlineShopAPI.Authentication.ApiKeyRequirementHandler">
+            <summary>
+            Enforce that an api key is present.
+            </summary>
+        </member>
+        <member name="M:OnlineShopAPI.Authentication.ApiKeyRequirementHandler.HandleRequirementAsync(Microsoft.AspNetCore.Authorization.AuthorizationHandlerContext,OnlineShopAPI.Authentication.ApiKeyRequirement)">
+            <copydoc cref="M:Microsoft.AspNetCore.Authorization.AuthorizationHandler`1.HandleRequirementAsync(Microsoft.AspNetCore.Authorization.AuthorizationHandlerContext,`0)" />
+        </member>
+        <member name="T:OnlineShopAPI.Controllers.CustomerInfoApiController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:OnlineShopAPI.Controllers.CustomerInfoApiController.#ctor(OnlineShopAPI.Service.Interface.IOrderService)">
+            <summary>
+            khởi tạo
+            </summary>
+            <param name="orderAccess"></param>
+        </member>
+        <member name="M:OnlineShopAPI.Controllers.CustomerInfoApiController.CustomerDelete(System.Guid)">
+            <summary>
+            xóa khách hàng
+            </summary>
+            <param name="customerId">ID người dùng</param>
+            <response code="200">Xóa khách hàng.</response>
+            <response code="400">Bad Request</response>
+            <response code="500">Internal Server Error</response>
+        </member>
+        <member name="M:OnlineShopAPI.Controllers.CustomerInfoApiController.CustomerPost(OnlineShopAPI.Models.ResponseResult)">
+            <summary>
+            thêm khách hàng
+            </summary>
+            <param name="responseResult"></param>
+            <response code="201">thêm thành công.</response>
+            <response code="400">Bad Request</response>
+            <response code="500">Internal Server Error</response>
+        </member>
+        <member name="M:OnlineShopAPI.Controllers.CustomerInfoApiController.CustomerPut(System.Guid,OnlineShopAPI.Models.ResponseResult)">
+            <summary>
+            sửa thong tin khach hang
+            </summary>
+            <param name="employeeId">ID người dùng</param>
+            <param name="responseResult"></param>
+            <response code="200">cập nhật thành công.</response>
+            <response code="400">Bad Request</response>
+            <response code="500">Internal Server Error</response>
+        </member>
+        <member name="M:OnlineShopAPI.Controllers.CustomerInfoApiController.GetCountpage">
+            <summary>
+            lấy số lượng bản ghi khách hàng
+            </summary>
+            <response code="200">trả dữu liệu thành công</response>
+        </member>
+        <member name="M:OnlineShopAPI.Controllers.CustomerInfoApiController.GetCustomerCustomerid(System.String)">
+            <summary>
+            lấy thông tin khác hàng theo ID
+            </summary>
+            <param name="customerid"></param>
+            <response code="200">trả dữu liệu thành công</response>
+            <response code="400">Bad Request</response>
+            <response code="500">Internal Server Error</response>
+        </member>
+        <member name="M:OnlineShopAPI.Controllers.CustomerInfoApiController.GetCustomers">
+            <summary>
+            lấy danh sách khách hàng
+            </summary>
+            <remarks>lấy danh sách khách hàng</remarks>
+            <response code="200">trả dữu liệu thành công</response>
+            <response code="400">Bad Request</response>
+            <response code="500">Internal Server Error</response>
+        </member>
+        <member name="M:OnlineShopAPI.Controllers.CustomerInfoApiController.GetOrderByID(System.Int64)">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:OnlineShopAPI.Controllers.EmployeeInfoApiController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:OnlineShopAPI.Controllers.EmployeeInfoApiController.EmployeesDelete(System.Guid)">
+            <summary>
+            xóa nhân viên
+            </summary>
+            <param name="userID">ID người dùng</param>
+            <response code="200">Xóa nhân viên.</response>
+            <response code="400">Bad Request</response>
+            <response code="500">Internal Server Error</response>
+        </member>
+        <member name="M:OnlineShopAPI.Controllers.EmployeeInfoApiController.EmployeesPost(OnlineShopAPI.Models.ResponseResult)">
+            <summary>
+            thêm nhân viên
+            </summary>
+            <param name="responseResult"></param>
+            <response code="201">thêm thành công.</response>
+            <response code="400">Bad Request</response>
+            <response code="500">Internal Server Error</response>
+        </member>
+        <member name="M:OnlineShopAPI.Controllers.EmployeeInfoApiController.EmployeesPut(System.Guid,OnlineShopAPI.Models.ResponseResult)">
+            <summary>
+            sửa nhân viên
+            </summary>
+            <param name="employeeId">ID người dùng</param>
+            <param name="responseResult"></param>
+            <response code="200">cập nhật thành công.</response>
+            <response code="400">Bad Request</response>
+            <response code="500">Internal Server Error</response>
+        </member>
+        <member name="M:OnlineShopAPI.Controllers.EmployeeInfoApiController.GetEmployees">
+            <summary>
+            lấy danh sách nhân viên
+            </summary>
+            <remarks>lấy danh sách nhân viên</remarks>
+            <response code="200">trả dữu liệu thành công</response>
+            <response code="400">Bad Request</response>
+            <response code="500">Internal Server Error</response>
+        </member>
+        <member name="T:OnlineShopAPI.Converters.CustomEnumConverter`1">
+            <summary>
+            Custom string to enum converter
+            </summary>
+        </member>
+        <member name="M:OnlineShopAPI.Converters.CustomEnumConverter`1.CanConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+            <summary>
+            Determine if we can convert a type to an enum
+            </summary>
+            <param name="context"></param>
+            <param name="sourceType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OnlineShopAPI.Converters.CustomEnumConverter`1.ConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object)">
+            <summary>
+            Convert from a type value to an enum
+            </summary>
+            <param name="context"></param>
+            <param name="culture"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OnlineShopAPI.DataAccess.Access.OrderAccess.GetOrder(Dapper.DynamicParameters)">
+            <summary>
+            lấy danh sách order theo id
+            </summary>
+            <param name="param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OnlineShopAPI.DataAccess.Access.OrderAccess.GetOrderById(Dapper.DynamicParameters)">
+            <summary>
+            lấy thông tin order theo id
+            </summary>
+            <param name="param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OnlineShopAPI.DataAccess.inteface.IOrderAccess.GetOrderById(Dapper.DynamicParameters)">
+            <summary>
+            lấy thông tin theo id
+            </summary>
+            <param name="param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OnlineShopAPI.DataAccess.inteface.IOrderAccess.GetOrder(Dapper.DynamicParameters)">
+            <summary>
+            lấy danh sách order theo id
+            </summary>
+            <param name="param"></param>
+            <returns></returns>
+        </member>
+        <member name="T:OnlineShopAPI.DBContext.DapperDBContext`1">
+            <summary>
+            DapperDBContext
+            </summary>
+        </member>
+        <member name="M:OnlineShopAPI.DBContext.DapperDBContext`1.#ctor(OnlineShopAPI.Models.OnlineShop.AppSetting.DBConnection)">
+            <summary>
+            khởi tạo
+            </summary>
+        </member>
+        <member name="M:OnlineShopAPI.DBContext.DapperDBContext`1.SelectFirstOfDefault(System.String,Dapper.DynamicParameters)">
+            <summary>
+            lấy thông tin 
+            </summary>
+            <param name="sql"></param>
+            <param name="param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OnlineShopAPI.DBContext.DapperDBContext`1.SelectList(System.String,Dapper.DynamicParameters)">
+            <summary>
+            lấy danh sách
+            </summary>
+            <param name="sql"></param>
+            <param name="param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OnlineShopAPI.DBContext.DapperDBContext`1.Dispose">
+            <summary>
+            Public implementation of Dispose pattern callable by consumers.
+            </summary>
+        </member>
+        <member name="T:OnlineShopAPI.DBContext.IDBContext`1">
+            <summary>
+            interface IDBContext
+            </summary>
+        </member>
+        <member name="M:OnlineShopAPI.DBContext.IDBContext`1.SelectFirstOfDefault(System.String,Dapper.DynamicParameters)">
+            <summary>
+            lấy thông tin 
+            </summary>
+            <param name="sql"></param>
+            <param name="param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OnlineShopAPI.DBContext.IDBContext`1.SelectList(System.String,Dapper.DynamicParameters)">
+            <summary>
+            lấy danh sách
+            </summary>
+            <param name="sql"></param>
+            <param name="param"></param>
+            <returns></returns>
+        </member>
+        <member name="T:OnlineShopAPI.Filters.BasePathFilter">
+            <summary>
+            BasePath Document Filter sets BasePath property of Swagger and removes it from the individual URL paths
+            </summary>
+        </member>
+        <member name="M:OnlineShopAPI.Filters.BasePathFilter.#ctor(System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="basePath">BasePath to remove from Operations</param>
+        </member>
+        <member name="P:OnlineShopAPI.Filters.BasePathFilter.BasePath">
+            <summary>
+            Gets the BasePath of the Swagger Doc
+            </summary>
+            <returns>The BasePath of the Swagger Doc</returns>
+        </member>
+        <member name="M:OnlineShopAPI.Filters.BasePathFilter.Apply(Microsoft.OpenApi.Models.OpenApiDocument,Swashbuckle.AspNetCore.SwaggerGen.DocumentFilterContext)">
+            <summary>
+            Apply the filter
+            </summary>
+            <param name="swaggerDoc">SwaggerDocument</param>
+            <param name="context">FilterContext</param>
+        </member>
+        <member name="T:OnlineShopAPI.Filters.GeneratePathParamsValidationFilter">
+            <summary>
+            Path Parameter Validation Rules Filter
+            </summary>
+        </member>
+        <member name="M:OnlineShopAPI.Filters.GeneratePathParamsValidationFilter.Apply(Microsoft.OpenApi.Models.OpenApiOperation,Swashbuckle.AspNetCore.SwaggerGen.OperationFilterContext)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="operation">Operation</param>
+            <param name="context">OperationFilterContext</param>
+        </member>
+        <member name="T:OnlineShopAPI.Models.CountPage">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:OnlineShopAPI.Models.CountPage._CountPage">
+            <summary>
+            Gets or Sets _CountPage
+            </summary>
+        </member>
+        <member name="M:OnlineShopAPI.Models.CountPage.ToString">
+            <summary>
+            Returns the string presentation of the object
+            </summary>
+            <returns>String presentation of the object</returns>
+        </member>
+        <member name="M:OnlineShopAPI.Models.CountPage.ToJson">
+            <summary>
+            Returns the JSON string presentation of the object
+            </summary>
+            <returns>JSON string presentation of the object</returns>
+        </member>
+        <member name="M:OnlineShopAPI.Models.CountPage.Equals(System.Object)">
+            <summary>
+            Returns true if objects are equal
+            </summary>
+            <param name="obj">Object to be compared</param>
+            <returns>Boolean</returns>
+        </member>
+        <member name="M:OnlineShopAPI.Models.CountPage.Equals(OnlineShopAPI.Models.CountPage)">
+            <summary>
+            Returns true if CountPage instances are equal
+            </summary>
+            <param name="other">Instance of CountPage to be compared</param>
+            <returns>Boolean</returns>
+        </member>
+        <member name="M:OnlineShopAPI.Models.CountPage.GetHashCode">
+            <summary>
+            Gets the hash code
+            </summary>
+            <returns>Hash code</returns>
+        </member>
+        <member name="T:OnlineShopAPI.Models.Customer">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:OnlineShopAPI.Models.Customer.CustomerId">
+            <summary>
+            id khách hàng
+            </summary>
+            <value>id khách hàng</value>
+        </member>
+        <member name="P:OnlineShopAPI.Models.Customer.CustomerCode">
+            <summary>
+            mã khách hàng
+            </summary>
+            <value>mã khách hàng</value>
+        </member>
+        <member name="P:OnlineShopAPI.Models.Customer.CustomerName">
+            <summary>
+            tên khách hàng
+            </summary>
+            <value>tên khách hàng</value>
+        </member>
+        <member name="P:OnlineShopAPI.Models.Customer.Email">
+            <summary>
+            email khách hàng
+            </summary>
+            <value>email khách hàng</value>
+        </member>
+        <member name="P:OnlineShopAPI.Models.Customer.CompanyName">
+            <summary>
+            tên công ty
+            </summary>
+            <value>tên công ty</value>
+        </member>
+        <member name="P:OnlineShopAPI.Models.Customer.CustomerGroupId">
+            <summary>
+            id nhóm khách hàng
+            </summary>
+            <value>id nhóm khách hàng</value>
+        </member>
+        <member name="P:OnlineShopAPI.Models.Customer.DebitMoney">
+            <summary>
+            sô tiền nợ của khách hàng
+            </summary>
+            <value>sô tiền nợ của khách hàng</value>
+        </member>
+        <member name="P:OnlineShopAPI.Models.Customer.Address">
+            <summary>
+            dịa chỉ khách hàng
+            </summary>
+            <value>dịa chỉ khách hàng</value>
+        </member>
+        <member name="P:OnlineShopAPI.Models.Customer.PhoneNumber">
+            <summary>
+            số diện thoại khách hàng
+            </summary>
+            <value>số diện thoại khách hàng</value>
+        </member>
+        <member name="P:OnlineShopAPI.Models.Customer.DateOfBirth">
+            <summary>
+            ngày sinh khách hàng
+            </summary>
+            <value>ngày sinh khách hàng</value>
+        </member>
+        <member name="M:OnlineShopAPI.Models.Customer.ToString">
+            <summary>
+            Returns the string presentation of the object
+            </summary>
+            <returns>String presentation of the object</returns>
+        </member>
+        <member name="M:OnlineShopAPI.Models.Customer.ToJson">
+            <summary>
+            Returns the JSON string presentation of the object
+            </summary>
+            <returns>JSON string presentation of the object</returns>
+        </member>
+        <member name="M:OnlineShopAPI.Models.Customer.Equals(System.Object)">
+            <summary>
+            Returns true if objects are equal
+            </summary>
+            <param name="obj">Object to be compared</param>
+            <returns>Boolean</returns>
+        </member>
+        <member name="M:OnlineShopAPI.Models.Customer.Equals(OnlineShopAPI.Models.Customer)">
+            <summary>
+            Returns true if Customer instances are equal
+            </summary>
+            <param name="other">Instance of Customer to be compared</param>
+            <returns>Boolean</returns>
+        </member>
+        <member name="M:OnlineShopAPI.Models.Customer.GetHashCode">
+            <summary>
+            Gets the hash code
+            </summary>
+            <returns>Hash code</returns>
+        </member>
+        <member name="T:OnlineShopAPI.Models.Employee">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:OnlineShopAPI.Models.Employee.EmployeeId">
+            <summary>
+            id của của nhân viên
+            </summary>
+            <value>id của của nhân viên</value>
+        </member>
+        <member name="P:OnlineShopAPI.Models.Employee.EmployeeCode">
+            <summary>
+            mã nhân viên
+            </summary>
+            <value>mã nhân viên</value>
+        </member>
+        <member name="P:OnlineShopAPI.Models.Employee.EmployeeName">
+            <summary>
+            tên nhân viên
+            </summary>
+            <value>tên nhân viên</value>
+        </member>
+        <member name="T:OnlineShopAPI.Models.Employee.GenderEnum">
+            <summary>
+            (giới tính 0-nam 1-nữ)
+            </summary>
+            <value>(giới tính 0-nam 1-nữ)</value>
+        </member>
+        <member name="F:OnlineShopAPI.Models.Employee.GenderEnum._0Enum">
+            <summary>
+            Enum _0Enum for 0
+            </summary>
+        </member>
+        <member name="F:OnlineShopAPI.Models.Employee.GenderEnum._1Enum">
+            <summary>
+            Enum _1Enum for 1
+            </summary>
+        </member>
+        <member name="P:OnlineShopAPI.Models.Employee.Gender">
+            <summary>
+            (giới tính 0-nam 1-nữ)
+            </summary>
+            <value>(giới tính 0-nam 1-nữ)</value>
+        </member>
+        <member name="P:OnlineShopAPI.Models.Employee.DateOfBirth">
+            <summary>
+            ngày sinh
+            </summary>
+            <value>ngày sinh</value>
+        </member>
+        <member name="P:OnlineShopAPI.Models.Employee.PhoneNumber">
+            <summary>
+            số điện thoại của nhân viên
+            </summary>
+            <value>số điện thoại của nhân viên</value>
+        </member>
+        <member name="P:OnlineShopAPI.Models.Employee.DepartmentId">
+            <summary>
+            id phòng ban
+            </summary>
+            <value>id phòng ban</value>
+        </member>
+        <member name="P:OnlineShopAPI.Models.Employee.DepartmentName">
+            <summary>
+            tên phòng ban
+            </summary>
+            <value>tên phòng ban</value>
+        </member>
+        <member name="P:OnlineShopAPI.Models.Employee.Email">
+            <summary>
+            email cuar nhân viên
+            </summary>
+            <value>email cuar nhân viên</value>
+        </member>
+        <member name="P:OnlineShopAPI.Models.Employee.Salary">
+            <summary>
+            mức lương
+            </summary>
+            <value>mức lương</value>
+        </member>
+        <member name="T:OnlineShopAPI.Models.Employee.WorkStatusEnum">
+            <summary>
+            (tình trạng công việc 0-đang làm việc 1-đã nghỉ việc)
+            </summary>
+            <value>(tình trạng công việc 0-đang làm việc 1-đã nghỉ việc)</value>
+        </member>
+        <member name="F:OnlineShopAPI.Models.Employee.WorkStatusEnum._0Enum">
+            <summary>
+            Enum _0Enum for 0
+            </summary>
+        </member>
+        <member name="F:OnlineShopAPI.Models.Employee.WorkStatusEnum._1Enum">
+            <summary>
+            Enum _1Enum for 1
+            </summary>
+        </member>
+        <member name="P:OnlineShopAPI.Models.Employee.WorkStatus">
+            <summary>
+            (tình trạng công việc 0-đang làm việc 1-đã nghỉ việc)
+            </summary>
+            <value>(tình trạng công việc 0-đang làm việc 1-đã nghỉ việc)</value>
+        </member>
+        <member name="P:OnlineShopAPI.Models.Employee.PositionId">
+            <summary>
+            id vị trí
+            </summary>
+            <value>id vị trí</value>
+        </member>
+        <member name="P:OnlineShopAPI.Models.Employee.PositionName">
+            <summary>
+            tên vị trí
+            </summary>
+            <value>tên vị trí</value>
+        </member>
+        <member name="P:OnlineShopAPI.Models.Employee.TaxCode">
+            <summary>
+            mã số thuế
+            </summary>
+            <value>mã số thuế</value>
+        </member>
+        <member name="P:OnlineShopAPI.Models.Employee.JoinDate">
+            <summary>
+            ngày gia nhập
+            </summary>
+            <value>ngày gia nhập</value>
+        </member>
+        <member name="P:OnlineShopAPI.Models.Employee.IdentityNumber">
+            <summary>
+            số chứng minh nhân dân
+            </summary>
+            <value>số chứng minh nhân dân</value>
+        </member>
+        <member name="P:OnlineShopAPI.Models.Employee.IdentityDate">
+            <summary>
+            ngày cấp chứng minh nhân dân
+            </summary>
+            <value>ngày cấp chứng minh nhân dân</value>
+        </member>
+        <member name="P:OnlineShopAPI.Models.Employee.IdentityPlace">
+            <summary>
+            nơi cấp chứng minh nhân dân
+            </summary>
+            <value>nơi cấp chứng minh nhân dân</value>
+        </member>
+        <member name="M:OnlineShopAPI.Models.Employee.ToString">
+            <summary>
+            Returns the string presentation of the object
+            </summary>
+            <returns>String presentation of the object</returns>
+        </member>
+        <member name="M:OnlineShopAPI.Models.Employee.ToJson">
+            <summary>
+            Returns the JSON string presentation of the object
+            </summary>
+            <returns>JSON string presentation of the object</returns>
+        </member>
+        <member name="M:OnlineShopAPI.Models.Employee.Equals(System.Object)">
+            <summary>
+            Returns true if objects are equal
+            </summary>
+            <param name="obj">Object to be compared</param>
+            <returns>Boolean</returns>
+        </member>
+        <member name="M:OnlineShopAPI.Models.Employee.Equals(OnlineShopAPI.Models.Employee)">
+            <summary>
+            Returns true if Employee instances are equal
+            </summary>
+            <param name="other">Instance of Employee to be compared</param>
+            <returns>Boolean</returns>
+        </member>
+        <member name="M:OnlineShopAPI.Models.Employee.GetHashCode">
+            <summary>
+            Gets the hash code
+            </summary>
+            <returns>Hash code</returns>
+        </member>
+        <member name="T:OnlineShopAPI.Models.Error">
+            <summary>
+            A standard error object.
+            </summary>
+        </member>
+        <member name="P:OnlineShopAPI.Models.Error.Code">
+            <summary>
+            Gets or Sets Code
+            </summary>
+        </member>
+        <member name="P:OnlineShopAPI.Models.Error.Message">
+            <summary>
+            Gets or Sets Message
+            </summary>
+        </member>
+        <member name="M:OnlineShopAPI.Models.Error.ToString">
+            <summary>
+            Returns the string presentation of the object
+            </summary>
+            <returns>String presentation of the object</returns>
+        </member>
+        <member name="M:OnlineShopAPI.Models.Error.ToJson">
+            <summary>
+            Returns the JSON string presentation of the object
+            </summary>
+            <returns>JSON string presentation of the object</returns>
+        </member>
+        <member name="M:OnlineShopAPI.Models.Error.Equals(System.Object)">
+            <summary>
+            Returns true if objects are equal
+            </summary>
+            <param name="obj">Object to be compared</param>
+            <returns>Boolean</returns>
+        </member>
+        <member name="M:OnlineShopAPI.Models.Error.Equals(OnlineShopAPI.Models.Error)">
+            <summary>
+            Returns true if Error instances are equal
+            </summary>
+            <param name="other">Instance of Error to be compared</param>
+            <returns>Boolean</returns>
+        </member>
+        <member name="M:OnlineShopAPI.Models.Error.GetHashCode">
+            <summary>
+            Gets the hash code
+            </summary>
+            <returns>Hash code</returns>
+        </member>
+        <member name="T:OnlineShopAPI.Models.OnlineShop.AppSetting.DBConnection">
+            <summary>
+            DBConnection
+            </summary>
+        </member>
+        <member name="P:OnlineShopAPI.Models.OnlineShop.AppSetting.DBConnection.ConnectionString">
+            <summary>
+            ConnectionString
+            </summary>
+        </member>
+        <member name="T:OnlineShopAPI.Models.OnlineShop.ViewModel.Order">
+            <summary>
+            bảng hóa đơn
+            </summary>
+        </member>
+        <member name="P:OnlineShopAPI.Models.OnlineShop.ViewModel.Order.ID">
+            <summary>
+            ID
+            </summary>
+        </member>
+        <member name="P:OnlineShopAPI.Models.OnlineShop.ViewModel.Order.CreatedDate">
+            <summary>
+            CreatedDate
+            </summary>
+        </member>
+        <member name="P:OnlineShopAPI.Models.OnlineShop.ViewModel.Order.CustomerID">
+            <summary>
+            CustomerID
+            </summary>
+        </member>
+        <member name="P:OnlineShopAPI.Models.OnlineShop.ViewModel.Order.ShipName">
+            <summary>
+            ShipName
+            </summary>
+        </member>
+        <member name="P:OnlineShopAPI.Models.OnlineShop.ViewModel.Order.ShipMobile">
+            <summary>
+            ShipMobile
+            </summary>
+        </member>
+        <member name="P:OnlineShopAPI.Models.OnlineShop.ViewModel.Order.ShipAddress">
+            <summary>
+            ShipAddress
+            </summary>
+        </member>
+        <member name="P:OnlineShopAPI.Models.OnlineShop.ViewModel.Order.ShipEmail">
+            <summary>
+            ShipEmail
+            </summary>
+        </member>
+        <member name="P:OnlineShopAPI.Models.OnlineShop.ViewModel.Order.Status">
+            <summary>
+            Status
+            </summary>
+        </member>
+        <member name="T:OnlineShopAPI.Models.OnlineShop.ViewModel.OrderAndOrderDetail">
+            <summary>
+            OrderAndOrderDetail
+            </summary>
+        </member>
+        <member name="P:OnlineShopAPI.Models.OnlineShop.ViewModel.OrderAndOrderDetail.ID">
+            <summary>
+            id
+            </summary>
+        </member>
+        <member name="P:OnlineShopAPI.Models.OnlineShop.ViewModel.OrderAndOrderDetail.Price">
+            <summary>
+            PromotionPrice
+            </summary>
+        </member>
+        <member name="P:OnlineShopAPI.Models.OnlineShop.ViewModel.OrderAndOrderDetail.CreatedDate">
+            <summary>
+            CreatedDate
+            </summary>
+        </member>
+        <member name="P:OnlineShopAPI.Models.OnlineShop.ViewModel.OrderAndOrderDetail.Name">
+            <summary>
+            name
+            </summary>
+        </member>
+        <member name="P:OnlineShopAPI.Models.OnlineShop.ViewModel.OrderAndOrderDetail.Code">
+            <summary>
+            mã sản phẩm
+            </summary>
+        </member>
+        <member name="P:OnlineShopAPI.Models.OnlineShop.ViewModel.OrderAndOrderDetail.Quantity">
+            <summary>
+            số lượng sản phẩm
+            </summary>
+        </member>
+        <member name="P:OnlineShopAPI.Models.OnlineShop.ViewModel.OrderAndOrderDetail.ShipName">
+            <summary>
+            người xác nhận
+            </summary>
+        </member>
+        <member name="P:OnlineShopAPI.Models.OnlineShop.ViewModel.OrderAndOrderDetail.ShipEmail">
+            <summary>
+            Email
+            </summary>
+        </member>
+        <member name="P:OnlineShopAPI.Models.OnlineShop.ViewModel.OrderAndOrderDetail.ShipMobile">
+            <summary>
+            số điện thoại
+            </summary>
+        </member>
+        <member name="T:OnlineShopAPI.Models.ResponsePage">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:OnlineShopAPI.Models.ResponsePage.CountPage">
+            <summary>
+            Gets or Sets CountPage
+            </summary>
+        </member>
+        <member name="M:OnlineShopAPI.Models.ResponsePage.ToString">
+            <summary>
+            Returns the string presentation of the object
+            </summary>
+            <returns>String presentation of the object</returns>
+        </member>
+        <member name="M:OnlineShopAPI.Models.ResponsePage.ToJson">
+            <summary>
+            Returns the JSON string presentation of the object
+            </summary>
+            <returns>JSON string presentation of the object</returns>
+        </member>
+        <member name="M:OnlineShopAPI.Models.ResponsePage.Equals(System.Object)">
+            <summary>
+            Returns true if objects are equal
+            </summary>
+            <param name="obj">Object to be compared</param>
+            <returns>Boolean</returns>
+        </member>
+        <member name="M:OnlineShopAPI.Models.ResponsePage.Equals(OnlineShopAPI.Models.ResponsePage)">
+            <summary>
+            Returns true if ResponsePage instances are equal
+            </summary>
+            <param name="other">Instance of ResponsePage to be compared</param>
+            <returns>Boolean</returns>
+        </member>
+        <member name="M:OnlineShopAPI.Models.ResponsePage.GetHashCode">
+            <summary>
+            Gets the hash code
+            </summary>
+            <returns>Hash code</returns>
+        </member>
+        <member name="T:OnlineShopAPI.Models.ResponseResult">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:OnlineShopAPI.Models.ResponseResult.CustomerId">
+            <summary>
+            id khách hàng
+            </summary>
+            <value>id khách hàng</value>
+        </member>
+        <member name="P:OnlineShopAPI.Models.ResponseResult.CustomerCode">
+            <summary>
+            mã khách hàng
+            </summary>
+            <value>mã khách hàng</value>
+        </member>
+        <member name="P:OnlineShopAPI.Models.ResponseResult.CustomerName">
+            <summary>
+            tên khách hàng
+            </summary>
+            <value>tên khách hàng</value>
+        </member>
+        <member name="P:OnlineShopAPI.Models.ResponseResult.Email">
+            <summary>
+            email khách hàng
+            </summary>
+            <value>email khách hàng</value>
+        </member>
+        <member name="P:OnlineShopAPI.Models.ResponseResult.CompanyName">
+            <summary>
+            tên công ty
+            </summary>
+            <value>tên công ty</value>
+        </member>
+        <member name="P:OnlineShopAPI.Models.ResponseResult.CustomerGroupId">
+            <summary>
+            id nhóm khách hàng
+            </summary>
+            <value>id nhóm khách hàng</value>
+        </member>
+        <member name="P:OnlineShopAPI.Models.ResponseResult.DebitMoney">
+            <summary>
+            sô tiền nợ của khách hàng
+            </summary>
+            <value>sô tiền nợ của khách hàng</value>
+        </member>
+        <member name="P:OnlineShopAPI.Models.ResponseResult.Address">
+            <summary>
+            dịa chỉ khách hàng
+            </summary>
+            <value>dịa chỉ khách hàng</value>
+        </member>
+        <member name="P:OnlineShopAPI.Models.ResponseResult.PhoneNumber">
+            <summary>
+            số diện thoại khách hàng
+            </summary>
+            <value>số diện thoại khách hàng</value>
+        </member>
+        <member name="P:OnlineShopAPI.Models.ResponseResult.DateOfBirth">
+            <summary>
+            ngày sinh khách hàng
+            </summary>
+            <value>ngày sinh khách hàng</value>
+        </member>
+        <member name="M:OnlineShopAPI.Models.ResponseResult.ToString">
+            <summary>
+            Returns the string presentation of the object
+            </summary>
+            <returns>String presentation of the object</returns>
+        </member>
+        <member name="M:OnlineShopAPI.Models.ResponseResult.ToJson">
+            <summary>
+            Returns the JSON string presentation of the object
+            </summary>
+            <returns>JSON string presentation of the object</returns>
+        </member>
+        <member name="M:OnlineShopAPI.Models.ResponseResult.Equals(System.Object)">
+            <summary>
+            Returns true if objects are equal
+            </summary>
+            <param name="obj">Object to be compared</param>
+            <returns>Boolean</returns>
+        </member>
+        <member name="M:OnlineShopAPI.Models.ResponseResult.Equals(OnlineShopAPI.Models.ResponseResult)">
+            <summary>
+            Returns true if ResponseResult instances are equal
+            </summary>
+            <param name="other">Instance of ResponseResult to be compared</param>
+            <returns>Boolean</returns>
+        </member>
+        <member name="M:OnlineShopAPI.Models.ResponseResult.GetHashCode">
+            <summary>
+            Gets the hash code
+            </summary>
+            <returns>Hash code</returns>
+        </member>
+        <member name="T:OnlineShopAPI.OpenApi.TypeExtensions">
+            <summary>
+            Replacement utilities from Swashbuckle.AspNetCore.SwaggerGen which are not in 5.x
+            </summary>
+        </member>
+        <member name="M:OnlineShopAPI.OpenApi.TypeExtensions.FriendlyId(System.Type,System.Boolean)">
+            <summary>
+            Produce a friendly name for the type which is unique.
+            </summary>
+            <param name="type"></param>
+            <param name="fullyQualified"></param>
+        </member>
+        <member name="M:OnlineShopAPI.OpenApi.TypeExtensions.FullNameSansTypeParameters(System.Type)">
+            <summary>
+            Determine the fully qualified type name without type parameters.
+            </summary>
+            <param name="type"></param>
+        </member>
+        <member name="T:OnlineShopAPI.Program">
+            <summary>
+            Program
+            </summary>
+        </member>
+        <member name="M:OnlineShopAPI.Program.Main(System.String[])">
+            <summary>
+            Main
+            </summary>
+            <param name="args"></param>
+        </member>
+        <member name="M:OnlineShopAPI.Program.CreateWebHostBuilder(System.String[])">
+            <summary>
+            Create the host builder.
+            </summary>
+            <param name="args"></param>
+            <returns>IHostBuilder</returns>
+        </member>
+        <member name="T:OnlineShopAPI.Service.Interface.IOrderService">
+            <summary>
+            inter face 
+            </summary>
+        </member>
+        <member name="M:OnlineShopAPI.Service.Interface.IOrderService.GetOrderById">
+            <summary>
+            lấy thông tin order theo id
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:OnlineShopAPI.Service.Interface.IOrderService.GetOrder(System.Int64)">
+            <summary>
+            lấy danh sách đơn hàng theo id
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:OnlineShopAPI.Service.Service.OrderService">
+            <summary>
+            lớp sử lý nghiệp vụ order
+            </summary>
+        </member>
+        <member name="M:OnlineShopAPI.Service.Service.OrderService.#ctor(OnlineShopAPI.DataAccess.inteface.IOrderAccess)">
+            <summary>
+            khởi tạo
+            </summary>
+        </member>
+        <member name="M:OnlineShopAPI.Service.Service.OrderService.GetOrder(System.Int64)">
+            <summary>
+            lấy dánh sách đơn hàng theo id
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:OnlineShopAPI.Service.Service.OrderService.GetOrderById">
+            <summary>
+            lấy thông tin đơn hàng theo id
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:OnlineShopAPI.Startup">
+            <summary>
+            Startup
+            </summary>
+        </member>
+        <member name="M:OnlineShopAPI.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="configuration"></param>
+        </member>
+        <member name="P:OnlineShopAPI.Startup.Configuration">
+            <summary>
+            The application configuration.
+            </summary>
+        </member>
+        <member name="M:OnlineShopAPI.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            This method gets called by the runtime. Use this method to add services to the container.
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:OnlineShopAPI.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+            </summary>
+            <param name="app"></param>
+            <param name="env"></param>
+        </member>
+    </members>
+</doc>

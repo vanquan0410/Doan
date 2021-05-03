@@ -5,6 +5,7 @@
     var category = (Models.EF.ProductCategory)ViewBag.Category;
     var relatedProducts = (List<Models.EF.Product>)ViewBag.RelatedProducts;
     var similarProducts = ViewBag.SimilarProducts as List<Models.EF.Product>;
+    var ProductIncluded = ViewBag.ProductIncluded as List<Models.EF.Product>;
 }
 
 @{
@@ -51,12 +52,12 @@
                     </div>
                     <div class="share-desc">
                         @*<div class="share">
-                                <p>Chia sẽ :</p>
-                                <ul>
-                                    <li><a href="#"><img src="images/facebook.png" alt="" /></a></li>
-                                    <li><a href="#"><img src="images/twitter.png" alt="" /></a></li>
-                                </ul>
-                            </div>*@
+                        <p>Chia sẽ :</p>
+                        <ul>
+                            <li><a href="#"><img src="images/facebook.png" alt="" /></a></li>
+                            <li><a href="#"><img src="images/twitter.png" alt="" /></a></li>
+                        </ul>
+                    </div>*@
                         <div class="button">
                             <span><a style="text-decoration" href="/them-gio-hang?productId=@Model.ID&quantity=1">Thêm vào giỏ</a></span>
                         </div>
@@ -81,8 +82,8 @@
                     <div class="resp-tabs-container">
                         <div class="product-desc">
                             @*<p>Lorem Ipsum is simply dummy text of the <span>printing and typesetting industry</span>. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, <span>when an unknown printer took a galley of type and scrambled</span> it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.<span> It has survived not only five centuries</span>, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>*@
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, <span>when an unknown printer took a galley of type and scrambled</span> it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.<span> It has survived not only five centuries</span>, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>*@
                             @Html.Raw(Model.Detail)
                         </div>
                     </div>
@@ -141,6 +142,41 @@
                 @if (similarProducts.Count > 0)
                 {
                     foreach (var item in similarProducts)
+                    {
+                        var urlChiTiet = "/chi-tiet/" + item.MetaTitle + "-" + item.ID;
+                        //var urlGioHang = "/them-gio-hang?productId=@item.ID&quantity=1";
+                        <div class="grid_1_of_4 images_1_of_4">
+                            <a href="@urlChiTiet"><img src="@item.Image" alt=""></a>
+                            <h2>@item.Name</h2>
+                            <div class="price-details">
+                                <div class="price-number">
+                                    <p><span class="rupees">@(item.Price.HasValue ? item.Price.Value.ToString("N0") : "Liên Hệ")</span></p>
+                                </div>
+                                <div class="add-cart">
+                                    <h4><a href="/them-gio-hang?productId=@item.ID&quantity=1">Thêm vào giỏ hàng</a></h4>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                    }
+                }
+
+            </div>
+
+            <div class="content_bottom" style="width:159%">
+                <div class="heading">
+                    <h3>Sản phẩm đi kèm</h3>
+                </div>
+                <div class="see">
+                    <p><a href="/san-pham">Xem tất cả</a></p>
+                </div>
+                <div class="clear"></div>
+            </div>
+            @*sản phẩm đi kèm*@
+            <div class="section group " style="width:160%">
+                @if (ProductIncluded != null)
+                {
+                    foreach (var item in ProductIncluded)
                     {
                         var urlChiTiet = "/chi-tiet/" + item.MetaTitle + "-" + item.ID;
                         //var urlGioHang = "/them-gio-hang?productId=@item.ID&quantity=1";

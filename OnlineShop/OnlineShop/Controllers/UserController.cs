@@ -205,6 +205,12 @@ namespace OnlineShop.Controllers
             });
         }
 
+        /// <summary>
+        /// login
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        /// createdby:dvquan
         [HttpPost]
         public ActionResult Login(LoginModel model)
         {

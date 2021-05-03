@@ -2,8 +2,14 @@
 
 namespace OnlineShop.Areas.Admin
 {
+    /// <summary>
+    /// AdminAreaRegistration
+    /// </summary>
     public class AdminAreaRegistration : AreaRegistration 
     {
+        /// <summary>
+        /// AreaName
+        /// </summary>
         public override string AreaName 
         {
             get 
@@ -12,6 +18,10 @@ namespace OnlineShop.Areas.Admin
             }
         }
 
+        /// <summary>
+        /// RegisterArea
+        /// </summary>
+        /// <param name="context">AreaRegistrationContext</param>
         public override void RegisterArea(AreaRegistrationContext context) 
         {
             context.MapRoute(

@@ -16,9 +16,12 @@ namespace OnlineShop.Controllers
     /// createdby:dvquan
     public class HomeController : Controller
     {
-        //
+        /// <summary>
+        /// home controller
+        /// </summary>
+        /// <returns></returns>
+        //createdby:dvquan
         // GET: /Home/
-
         public ActionResult Index()
         {
             ViewBag.Slides = new SlideDao().ListAll();
@@ -27,6 +30,12 @@ namespace OnlineShop.Controllers
             ViewBag.ListFeatureProducts = productDao.ListFeatureProduct(4);
             return View();
         }
+
+        /// <summary>
+        /// controller menu
+        /// </summary>
+        /// <returns></returns>
+        /// createdby:dvquan
         //Menu chinh
         [ChildActionOnly]
         public ActionResult MainMenu()
@@ -34,6 +43,12 @@ namespace OnlineShop.Controllers
             var model = new MenuDao().ListByGroupID(1);
             return PartialView(model);
         }
+
+        /// <summary>
+        /// controller menu top
+        /// </summary>
+        /// <returns></returns>
+        /// createdby:dvquan
         //Menu Top
         [ChildActionOnly]
         public ActionResult TopMenu()
@@ -41,6 +56,11 @@ namespace OnlineShop.Controllers
             var model = new MenuDao().ListByGroupID(2);
             return PartialView(model);
         }
+
+        /// <summary>
+        /// controller HeaderCart
+        /// </summary>
+        /// <returns></returns>
         [ChildActionOnly]
         public PartialViewResult HeaderCart()
         {
@@ -52,6 +72,11 @@ namespace OnlineShop.Controllers
             }
             return PartialView(list);
         }
+
+        /// <summary>
+        /// controller Footer
+        /// </summary>
+        /// <returns></returns>
         //Footer
         [ChildActionOnly]
         public ActionResult Footer()

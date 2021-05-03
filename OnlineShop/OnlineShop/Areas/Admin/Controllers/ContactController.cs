@@ -14,6 +14,10 @@ namespace OnlineShop.Areas.Admin.Controllers
         //
         // GET: /Admin/Contact/
 
+        /// <summary>
+        /// trang contact
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
             return View();

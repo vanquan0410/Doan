@@ -16,6 +16,10 @@ namespace OnlineShop.Areas.Admin.Controllers
     /// createdby:dvquan
     public class LoginController : Controller
     {
+        /// <summary>
+        /// login
+        /// </summary>
+        /// <returns></returns>
         // GET: Admin/Login
         public ActionResult Index()
         {

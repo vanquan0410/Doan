@@ -14,7 +14,10 @@ namespace OnlineShop.Areas.Admin.Controllers
     {
         //
         // GET: /Admin/Menu/
-
+        /// <summary>
+        /// menu
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
             return View();

@@ -6,9 +6,17 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@{
+    var ProductIncluded = ViewBag.ProductIncluded as List<Models.EF.Product>;
+}
 @section jsFooter{
     <script src="/assets/client/js/controller/cartController.js"></script>
 }
+<style>
+    .grid_1_of_4:first-child {
+        margin-left: 15px;
+    }
+</style>
 <div class="content">
     <div class="section group">
         @if (Model.Count() > 0)
@@ -27,13 +35,13 @@
                 </thead>
                 <tbody>
                     @{
-            decimal total = 0;
+                        decimal total = 0;
                     }
 
                     @foreach (var item in Model)
                     {
                         //total += item.Total;
-                        total+=(item.Product.Price.GetValueOrDefault(0) * item.Quantity);
+                        total += (item.Product.Price.GetValueOrDefault(0) * item.Quantity);
                         <tr>
                             <td>@item.Product.ID</td>
                             <td>@item.Product.Name</td>
@@ -42,8 +50,9 @@
                             <td>@item.Product.Price.GetValueOrDefault(0).ToString("N0")</td>
                             <td>@((item.Product.Price.GetValueOrDefault(0) * item.Quantity).ToString("N0"))</td>
                             <td><a href="#" data-id="@item.Product.ID" class="btn-delete">Xoá</a></td>
-                           
-                        </tr>                        
+
+                        </tr>
+
                     }
                     <tr>
                         <td colspan="5"><b>TỔNG TIỀN</b></td>
@@ -62,4 +71,38 @@
             <span class="alter alert-danger">Chưa có sản phẩm nào trong giỏ hàng</span>
         }
     </div>
+</div>
+<div class="content_bottom" style="width:102%">
+    <div class="heading">
+        <h3>Sản phẩm đi kèm</h3>
+    </div>
+    <div class="see">
+        <p><a href="/san-pham">Xem tất cả</a></p>
+    </div>
+    <div class="clear"></div>
+</div>
+@*sản phẩm đi kèm*@
+<div class="section group " style="width:102%">
+    @if (ProductIncluded != null)
+    {
+        foreach (var item in ProductIncluded)
+        {
+            var urlChiTiet = "/chi-tiet/" + item.MetaTitle + "-" + item.ID;
+            //var urlGioHang = "/them-gio-hang?productId=@item.ID&quantity=1";
+            <div class="grid_1_of_4 images_1_of_4">
+                <a href="@urlChiTiet"><img src="@item.Image" alt=""></a>
+                <h2>@item.Name</h2>
+                <div class="price-details">
+                    <div class="price-number">
+                        <p><span class="rupees">@(item.Price.HasValue ? item.Price.Value.ToString("N0") : "Liên Hệ")</span></p>
+                    </div>
+                    <div class="add-cart">
+                        <h4><a href="/them-gio-hang?productId=@item.ID&quantity=1">Thêm vào giỏ hàng</a></h4>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        }
+    }
+
 </div>

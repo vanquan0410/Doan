@@ -10,13 +10,28 @@ using Common;
 
 namespace Models.DAO
 {
+    /// <summary>
+    /// lớp user tượng tác với csdl
+    /// </summary>
     public class UserDao
     {
         OnlineShopDbContext db = null;
+
+        /// <summary>
+        /// khởi tạo
+        /// </summary>
         public UserDao()
         {
             db = new OnlineShopDbContext();
         }
+
+        /// <summary>
+        /// đăng nhập
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="passWord"></param>
+        /// <param name="isLoginAdmin"></param>
+        /// <returns></returns>
         //Dang nhap
         public int Login(string userName, string passWord, bool isLoginAdmin = true)
         {
@@ -58,13 +73,23 @@ namespace Models.DAO
             }
         }
 
-
+        /// <summary>
+        /// thêm user
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
         public long Insert(User entity)
         {
             db.Users.Add(entity);
             db.SaveChanges();
             return entity.ID;
         }
+
+        /// <summary>
+        /// thêm user
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
         public long InsertForFacebook(User entity)
         {
             var user = db.Users.SingleOrDefault(x => x.UserName == entity.UserName);
@@ -81,6 +106,11 @@ namespace Models.DAO
 
         }
 
+        /// <summary>
+        /// cập nhập
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
         public bool Update(User entity)
         {
             try
@@ -107,6 +137,13 @@ namespace Models.DAO
 
         }
 
+        /// <summary>
+        /// lấy tất cả danh sách phan trang
+        /// </summary>
+        /// <param name="searchString"></param>
+        /// <param name="page"></param>
+        /// <param name="pageSize"></param>
+        /// <returns></returns>
         public IEnumerable<User> ListAllPaging(string searchString, int page, int pageSize)
         {
             IQueryable<User> model = db.Users;
@@ -118,18 +155,32 @@ namespace Models.DAO
             return model.OrderByDescending(x => x.CreatedDate).ToPagedList(page, pageSize);
         }
 
-
-
+        /// <summary>
+        /// lấy thông tin user
+        /// </summary>
+        /// <param name="userName">userName</param>
+        /// <returns></returns>
+        /// createdby:dvquan
         public User GetById(string userName)
         {
             return db.Users.SingleOrDefault(x => x.UserName == userName);
         }
 
+        /// <summary>
+        /// thông tin chi t user theo id
+        /// </summary>
+        /// <param name="id">id</param>
+        /// <returns></returns>
         public User ViewDetail(int id)
         {
             return db.Users.Find(id);
         }
 
+        /// <summary>
+        /// GetListCredential
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
         public List<string> GetListCredential(string userName)
         {
             var user = db.Users.Single(x => x.UserName == userName);
@@ -150,7 +201,11 @@ namespace Models.DAO
 
         }
       
-
+        /// <summary>
+        /// thay đổi trạng thái
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public bool ChangeStatus(long id)
         {
             var user = db.Users.Find(id);
@@ -159,6 +214,11 @@ namespace Models.DAO
             return user.Status;
         }
 
+        /// <summary>
+        /// xóa user id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public bool Delete(int id)
         {
             try
@@ -174,11 +234,24 @@ namespace Models.DAO
             }
 
         }
+
+        /// <summary>
+        /// kiểm tra theo tên
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        /// createdby:dvquan
         public bool CheckUserName(string userName)
         {
             return db.Users.Count(x => x.UserName == userName) > 0;
         }
 
+        /// <summary>
+        /// kiểm tra email
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        /// createdby:dvquan
         public bool CheckEmail(string email)
         {
             return db.Users.Count(x => x.Email == email) > 0;

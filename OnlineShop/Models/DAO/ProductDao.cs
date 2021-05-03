@@ -195,7 +195,7 @@ namespace Models.DAO
         /// <param name="categoryID">id loại sản phẩm</param>
         /// <returns>ds sp</returns>
         /// createdby:dvquan
-        public async  Task<List<Product>> GetListProductsSimilar(string lable,string categoryID)
+        public async Task<List<Product>> GetListProductsSimilar(string lable,string categoryID)
         {
             return db.Products.Where(x => x.Lable == lable && x.CategoryID.ToString()==categoryID).ToList();
         }
@@ -320,6 +320,17 @@ namespace Models.DAO
                 return false;
             }
 
+        }
+
+        /// <summary>
+        /// lấy thông tin sản phẩm theo id sản phẩm
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// createdby:dvquan
+        public Product GetById(long id)
+        {
+            return db.Products.Where(x => x.ID == id).FirstOrDefault();
         }
 
     }

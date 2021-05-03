@@ -14,6 +14,10 @@ using Common;
 using NLog;
 using RestSharp;
 using Models.Utilitie;
+using OfficeOpenXml;
+using System.Data;
+using System.IO;
+using System.Diagnostics;
 
 namespace OnlineShop.Areas.Admin.Controllers
 {
@@ -128,6 +132,85 @@ namespace OnlineShop.Areas.Admin.Controllers
             SetAlert("Tên sản phẩm bắt buộc", "error");
             return View("Create");
         }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult ImportData(HttpPostedFileBase upload)
+        {
+            string str1 = ".xlsx";
+            string str2 = ".xsl";
+            if(Path.GetExtension(upload.FileName).Contains(str1)||Path.GetExtension(upload.FileName).Contains(str2))
+            {
+                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+                ExcelPackage package = new ExcelPackage(upload.InputStream);
+                
+                DataTable dt = ImportFile(package);
+                var session = (Common.UserLogin)Session[OnlineShop.Common.CommonConstants.USER_SESSION];
+                int count = 0;
+                foreach (DataRow item in dt.Rows)
+                {
+
+
+                    Console.WriteLine(item);
+                    var productItem = new Product();
+                    productItem.Code = item.ItemArray[0].ToString();
+                    productItem.Name = item.ItemArray[1].ToString();
+                    productItem.Price = Convert.ToInt32(item.ItemArray[2].ToString());
+                    productItem.Detail = item.ItemArray[3].ToString();
+                    productItem.Image = item.ItemArray[4].ToString();
+                    productItem.CategoryID = Convert.ToInt32(item.ItemArray[5].ToString());
+                    productItem.Description = item.ItemArray[1].ToString();
+                    productItem.MetaTitle = CommonConstants.convertToUnSign3(productItem.Name);
+                    productItem.CreatedBy = session.UserName;
+                    productItem.MetaKeywords = productItem.MetaTitle;
+                    productItem.MetaDescriptions = productItem.MetaTitle;
+                    productItem.TopHot = DateTime.Now;
+                    productItem.ViewCount = 0;
+                    productItem.Status = true;
+                    productItem.CreatedDate = DateTime.Now;
+                    productItem.Quantity = Convert.ToInt32(item.ItemArray[6].ToString());
+                    //call api lấy nhãn của sản phẩm(thêm mới sản phẩm)
+                    var client = new RestClient(Contains.HostServiceKNN + SubPathKNN.GetLable + Convert.ToInt32(item.ItemArray[2].ToString()));
+                    client.Timeout = -1;
+                    var request = new RestRequest(Method.POST);
+                    IRestResponse response = client.Execute(request);
+                    Console.WriteLine(response.Content);
+                    var res = response.Content;
+                    res = res.Replace("[", "");
+                    res = res.Replace("]", "");
+                    res = res.Replace("\n", "");
+
+                    if (!string.IsNullOrEmpty(res))
+                    {
+                        //nhãn của sản phẩm
+                        productItem.Lable = res;
+                    }
+                    var dao = new ProductDao();
+                    long id = dao.Insert(productItem);
+                    if (id > 0)
+                    {
+
+                        count++;
+                    }
+                   
+                }
+                if (count < 1)
+                {
+                    ModelState.AddModelError("", "Thêm sản phẩm không thành công");
+                }
+                else
+                {
+                    SetAlert("Thêm sản phẩm thành công", "success");
+                    return RedirectToAction("Select", "Product");
+                }
+            }
+            return RedirectToAction("Select", "Product");
+        }
+
 
         /// <summary>
         /// màn hình hiển thị thông tin chho người dùng sửa sản phẩm
@@ -294,6 +377,35 @@ namespace OnlineShop.Areas.Admin.Controllers
             {
                 data = listImagesReturn
             }, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="package"></param>
+        /// <returns></returns>
+        public DataTable ImportFile(ExcelPackage package)
+        {
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            ExcelWorksheet worksheet = package.Workbook.Worksheets.First();
+            DataTable dt = new DataTable();
+            foreach (var firstRowCell in worksheet.Cells[1,1,1,worksheet.Dimension.End.Column ])
+            {
+                dt.Columns.Add(firstRowCell.Text);
+            }
+            for (int rowNumber = 2; rowNumber <= worksheet.Dimension.End.Row; rowNumber++)
+            {
+                var row = worksheet.Cells[rowNumber, 1, rowNumber, worksheet.Dimension.End.Column];
+                var newRow = dt.NewRow();
+                foreach (var cell in row)
+                {
+
+                    newRow[cell.Start.Column - 1] = cell.Text;
+
+                }
+                dt.Rows.Add(newRow);
+            }
+            return dt;
         }
     }
 }

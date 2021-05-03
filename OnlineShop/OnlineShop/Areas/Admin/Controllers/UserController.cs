@@ -23,13 +23,23 @@ namespace OnlineShop.Areas.Admin.Controllers
         //    var model = dao.ListAllPaging( page, pageSize);
         //    return View(model);
         //}
-
+        /// <summary>
+        /// logout
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Logout()
         {
             Session[Common.CommonConstants.USER_SESSION] = null;
             return Redirect("/");
         }
 
+        /// <summary>
+        /// lấy danh sách
+        /// </summary>
+        /// <param name="searchString"></param>
+        /// <param name="page"></param>
+        /// <param name="pageSize"></param>
+        /// <returns></returns>
         public ActionResult Select(string searchString, int page = 1, int pageSize = 5)
         {
             var dao = new UserDao();
@@ -38,20 +48,32 @@ namespace OnlineShop.Areas.Admin.Controllers
             return View(model);
         }
 
-
+        /// <summary>
+        /// chỉnh sửa
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Edit(int id)
         {
             var user = new UserDao().ViewDetail(id);
             return View(user);
         }
 
-
+        /// <summary>
+        /// tạo
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult Create()
         {
             return View();
         }
 
+        /// <summary>
+        /// tạo
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Create(User user)
         {
@@ -87,6 +109,12 @@ namespace OnlineShop.Areas.Admin.Controllers
             return View("Create");
         }
 
+        /// <summary>
+        /// chỉnh sửa user
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        /// createdby:dvquan
         [HttpPost]
         public ActionResult Edit(User user)
         {
@@ -110,6 +138,11 @@ namespace OnlineShop.Areas.Admin.Controllers
             return View("Select");
         }
 
+        /// <summary>
+        /// xóa
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete]
         public ActionResult Delete(int id)
         {
@@ -117,6 +150,11 @@ namespace OnlineShop.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
+        /// <summary>
+        /// thay đổi trạng thái
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public JsonResult ChangeStatus(long id)
         {
             var result = new UserDao().ChangeStatus(id);

@@ -8,12 +8,19 @@ using System.Web.Mvc;
 
 namespace OnlineShop.Areas.Admin.Controllers
 {
+    /// <summary>
+    /// BillController
+    /// </summary>
     public class BillController : Controller
     {
         //
         // GET: /Admin/Bill/
 
         OnlineShopDbContext db = new OnlineShopDbContext();
+        /// <summary>
+        /// trang Bill
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
             return View();

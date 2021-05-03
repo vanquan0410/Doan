@@ -84,5 +84,15 @@ namespace Models.DAO
             db.SaveChanges();
             return 2;
         }
+
+        public async Task<IEnumerable<Order>> ListFindAll(string start, string end, int page, int pageSize)
+        {
+            IQueryable<Order> model = db.Orders;
+            if (!string.IsNullOrEmpty(start) && !string.IsNullOrEmpty(end))
+            {
+                /* model=model.Where(x=>(x.CreatedDate))*/
+            }
+            return null;
+        }
     }
 }

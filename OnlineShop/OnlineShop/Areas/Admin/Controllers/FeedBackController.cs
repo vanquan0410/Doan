@@ -14,7 +14,10 @@ namespace OnlineShop.Areas.Admin.Controllers
     {
         //
         // GET: /Admin/FeedBack/
-
+        /// <summary>
+        /// trang FeedBack
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
             return View();
